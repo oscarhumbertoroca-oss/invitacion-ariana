@@ -1,719 +1,1210 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Real 5 Añitos - Ariana Roca</title>
+    <title>Invitación Real Rapunzel - Ariana Roca</title>
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- Google Fonts: Cinzel Decorative, Great Vibes & Cormorant Garamond -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        rapunzel: {
-                            purple: '#4d1c75',
-                            darkPurple: '#2a0845',
-                            deepNight: '#130224',
-                            gold: '#f6c344',
-                            amber: '#e59e1b',
-                            pink: '#e879f9',
-                            rose: '#f472b6',
-                            softLavender: '#f3e8ff'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Quicksand', 'sans-serif'],
-                        cursive: ['"Great Vibes"', 'cursive'],
-                        serif: ['"Cinzel Decorative"', 'serif']
+                        'orchid-primary': '#a06BAF',
+                        'orchid-light': '#c9a1d6',
+                        'orchid-pale': '#f3e8f6',
+                        'orchid-deep': '#3b1847',
+                        'orchid-dark': '#230b2c',
+                        'corona-gold': '#fbbf24',
+                        'sun-yellow': '#fef08a'
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Great+Vibes&family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Canvas Confetti CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
+    
     <style>
-        body {
-            background-color: #130224;
-            color: #ffffff;
-            font-family: 'Quicksand', sans-serif;
-            overflow-x: hidden;
-            user-select: none;
+        .font-royal {
+            font-family: 'Cinzel Decorative', serif;
         }
-        .glow-text-gold {
-            text-shadow: 0 0 15px rgba(246, 195, 68, 0.7), 0 0 30px rgba(229, 158, 27, 0.45);
+        .font-cursive {
+            font-family: 'Great Vibes', cursive;
         }
-        .glow-text-purple {
-            text-shadow: 0 2px 10px rgba(77, 28, 117, 0.35);
+        .font-storybook {
+            font-family: 'Cormorant Garamond', Georgia, serif;
         }
-        .glow-box-gold {
-            box-shadow: 0 0 25px rgba(246, 195, 68, 0.35), inset 0 0 15px rgba(246, 195, 68, 0.2);
+
+        /* Sol de Corona Rapunzel (Fiel a la imagen original) */
+        .corona-sun-container {
+            filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.65)) drop-shadow(0 0 50px rgba(160, 107, 175, 0.8));
+            animation: sunBreathe 5s ease-in-out infinite alternate;
+            transform-origin: center center;
         }
-        @keyframes floatLantern {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(1.5deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+
+        @keyframes sunBreathe {
+            0% {
+                transform: scale(0.98);
+                filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.55)) drop-shadow(0 0 40px rgba(160, 107, 175, 0.65));
+            }
+            100% {
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 32px rgba(251, 191, 36, 0.85)) drop-shadow(0 0 65px rgba(192, 132, 252, 0.85));
+            }
         }
-        .lantern-float {
-            animation: floatLantern 4s ease-in-out infinite;
+
+        /* Giro suave y majestuoso de los rayos */
+        .corona-rays-spin {
+            animation: spinCoronaRays 40s linear infinite;
+            transform-origin: 150px 150px;
         }
-        @keyframes slowSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+
+        @keyframes spinCoronaRays {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        .sun-spin {
-            animation: slowSpin 60s linear infinite;
+
+        /* Explosión mágica al tocar */
+        .corona-sun-burst {
+            animation: sunBurstPop 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.05); }
+
+        @keyframes sunBurstPop {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.18) rotate(12deg); }
+            70% { transform: scale(0.95) rotate(-4deg); }
+            100% { transform: scale(1) rotate(0deg); }
         }
-        .magic-pulse {
-            animation: pulseGlow 3s ease-in-out infinite;
-        }
-        @keyframes sparkleTwinkle {
+
+        /* Sparkle float animation */
+        @keyframes sparklePulse {
             0%, 100% { opacity: 0.3; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1.2); }
         }
-        .sparkle-dot {
-            animation: sparkleTwinkle 2.5s ease-in-out infinite;
+        .animate-sparkle-1 { animation: sparklePulse 2.5s ease-in-out infinite; }
+        .animate-sparkle-2 { animation: sparklePulse 3.2s ease-in-out 0.8s infinite; }
+        .animate-sparkle-3 { animation: sparklePulse 2.8s ease-in-out 1.5s infinite; }
+
+        /* Tangled Hair Shimmer and Pulsing */
+        .hair-silhouette {
+            filter: drop-shadow(0 0 16px rgba(254, 240, 138, 0.35));
+            animation: hairPulse 6s ease-in-out infinite alternate;
         }
-        #lanternCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+
+        @keyframes hairPulse {
+            0% { opacity: 0.28; }
+            100% { opacity: 0.45; }
+        }
+
+        /* Lush Cascading Golden Mane (Right Lateral) */
+        .lateral-braid {
+            filter: drop-shadow(-5px 0 18px rgba(245, 158, 11, 0.4)) drop-shadow(0 0 12px rgba(253, 224, 71, 0.5));
+            animation: gentleBraidShimmer 7s ease-in-out infinite alternate;
+        }
+
+        @keyframes gentleBraidShimmer {
+            0% { 
+                filter: drop-shadow(-4px 0 14px rgba(245, 158, 11, 0.35)) drop-shadow(0 0 8px rgba(250, 204, 21, 0.4));
+                transform: translateY(0); 
+            }
+            100% { 
+                filter: drop-shadow(-7px 0 24px rgba(245, 158, 11, 0.55)) drop-shadow(0 0 20px rgba(253, 224, 71, 0.7));
+                transform: translateY(6px); 
+            }
+        }
+
+        /* Storybook Chameleon Perched on RSVP */
+        .chameleon-peeking {
+            animation: chameleonBreathe 4.5s ease-in-out infinite alternate;
+            transform-origin: bottom center;
+            transition: transform 0.2s ease;
+        }
+
+        .chameleon-pop {
+            animation: chameleonPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes chameleonPop {
+            0% { transform: scale(1); }
+            45% { transform: scale(1.22) rotate(-8deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes chameleonBreathe {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-2px) rotate(1.5deg); }
+            100% { transform: translateY(-4px) rotate(-1deg); }
+        }
+
+        /* Floating Lantern Animation */
+        @keyframes lanternFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1.5deg); }
+        }
+        .animate-lantern {
+            animation: lanternFloat 5s ease-in-out infinite;
+        }
+
+        /* Royal Cards Glassmorphism with #a06BAF theme */
+        .royal-card {
+            background: rgba(43, 17, 53, 0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(160, 107, 175, 0.45);
+            box-shadow: 0 12px 32px -5px rgba(0, 0, 0, 0.6), 0 0 25px rgba(160, 107, 175, 0.25);
         }
     </style>
 </head>
-<body class="relative min-h-screen">
+<body class="bg-gradient-to-b from-[#180920] via-[#2d1438] to-[#120518] text-slate-100 min-h-screen relative overflow-x-hidden font-storybook selection:bg-[#a06BAF] selection:text-white">
 
-    <!-- Floating Interactive Lantern Canvas -->
-    <canvas id="lanternCanvas"></canvas>
+    <!-- Ambient Floating Lanterns Canvas (Background Layer above hair silhouette) -->
+    <canvas id="lanternCanvas" class="fixed inset-0 pointer-events-none z-[3] w-full h-full"></canvas>
 
-    <!-- Decorative Festive Bunting (Banderines del Reino) -->
-    <div class="fixed top-0 left-0 w-full z-20 pointer-events-none flex justify-around opacity-90">
-        <svg viewBox="0 0 1000 60" class="w-full h-12 sm:h-16" preserveAspectRatio="none">
-            <path d="M 0 0 Q 125 40 250 10 Q 375 40 500 10 Q 625 40 750 10 Q 875 40 1000 0" stroke="#f6c344" stroke-width="2" fill="none"/>
-            <!-- Triangle Pennants -->
-            <polygon points="50,15 90,15 70,52" fill="#7b1fa2" opacity="0.85"/>
-            <polygon points="175,22 215,22 195,58" fill="#f6c344" opacity="0.9"/>
-            <polygon points="300,22 340,22 320,58" fill="#ec4899" opacity="0.85"/>
-            <polygon points="425,18 465,18 445,55" fill="#ab47bc" opacity="0.85"/>
-            <polygon points="550,18 590,18 570,55" fill="#f6c344" opacity="0.9"/>
-            <polygon points="675,22 715,22 695,58" fill="#ec4899" opacity="0.85"/>
-            <polygon points="800,22 840,22 820,58" fill="#7b1fa2" opacity="0.85"/>
-            <polygon points="915,15 955,15 935,52" fill="#f6c344" opacity="0.9"/>
+    <!-- Abundant Cascading Golden Mane with Woven Flowers (Framing the entire right side) -->
+    <div class="fixed top-0 right-0 h-full w-28 sm:w-40 md:w-56 lg:w-72 pointer-events-none z-[2] overflow-hidden select-none opacity-90">
+        <svg class="h-full w-full lateral-braid" viewBox="0 0 200 1200" preserveAspectRatio="none" fill="none">
+            <defs>
+                <!-- Deep Gold Base Gradient -->
+                <linearGradient id="maneBaseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fef08a"/>
+                    <stop offset="25%" stop-color="#fde047"/>
+                    <stop offset="55%" stop-color="#eab308"/>
+                    <stop offset="85%" stop-color="#d97706"/>
+                    <stop offset="100%" stop-color="#92400e"/>
+                </linearGradient>
+
+                <!-- Golden Lock Tone 2 -->
+                <linearGradient id="maneLockGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#fffbeb"/>
+                    <stop offset="30%" stop-color="#fef08a"/>
+                    <stop offset="65%" stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#b45309"/>
+                </linearGradient>
+
+                <!-- Golden Lock Tone 3 (Warm Honey) -->
+                <linearGradient id="maneHoneyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#fde68a"/>
+                    <stop offset="45%" stop-color="#facc15"/>
+                    <stop offset="85%" stop-color="#d97706"/>
+                    <stop offset="100%" stop-color="#78350f"/>
+                </linearGradient>
+
+                <!-- Shimmer Light Thread -->
+                <linearGradient id="maneShimmerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                    <stop offset="50%" stop-color="#fef9c3" stop-opacity="0.85"/>
+                    <stop offset="100%" stop-color="#fef08a" stop-opacity="0.5"/>
+                </linearGradient>
+
+                <!-- Floral Gradients -->
+                <radialGradient id="flowerPinkGrad" cx="40%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#fce7f3"/>
+                    <stop offset="40%" stop-color="#f472b6"/>
+                    <stop offset="100%" stop-color="#be185d"/>
+                </radialGradient>
+                <radialGradient id="flowerPurpleGrad" cx="40%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#f3e8ff"/>
+                    <stop offset="45%" stop-color="#c084fc"/>
+                    <stop offset="100%" stop-color="#7e22ce"/>
+                </radialGradient>
+                <radialGradient id="flowerRoseGrad" cx="40%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#fff1f2"/>
+                    <stop offset="45%" stop-color="#fb7185"/>
+                    <stop offset="100%" stop-color="#e11d48"/>
+                </radialGradient>
+            </defs>
+
+            <!-- LUSH BACKGROUND LOCKS (Underlayer of thick flowing hair volume) -->
+            <path d="M140,-20 Q190,80 150,190 Q110,300 170,420 Q210,540 150,660 Q100,780 165,900 Q205,1020 140,1130 Q100,1210 150,1240" 
+                  stroke="url(#maneBaseGrad)" stroke-width="56" stroke-linecap="round" opacity="0.45"/>
+
+            <path d="M110,-10 Q165,100 120,210 Q85,320 145,430 Q190,550 125,670 Q75,790 140,910 Q180,1030 115,1140 Q80,1210 120,1240" 
+                  stroke="url(#maneHoneyGrad)" stroke-width="42" stroke-linecap="round" opacity="0.6"/>
+
+            <!-- MAIN INTERWOVEN BRAID & CASCADING LOCKS -->
+            <path d="M125,0 Q180,70 120,140 Q65,210 135,280 Q195,350 125,420 Q60,490 130,560 Q195,630 125,700 Q60,770 130,840 Q195,910 125,980 Q60,1050 130,1120 Q185,1170 125,1220" 
+                  stroke="url(#maneBaseGrad)" stroke-width="30" stroke-linecap="round"/>
+
+            <path d="M95,0 Q45,70 105,140 Q165,210 95,280 Q35,350 105,420 Q170,490 100,560 Q35,630 105,700 Q170,770 100,840 Q35,910 105,980 Q170,1050 100,1120 Q45,1170 105,1220" 
+                  stroke="url(#maneLockGrad2)" stroke-width="26" stroke-linecap="round"/>
+
+            <path d="M155,0 Q195,90 160,180 Q125,270 175,370 Q210,470 165,570 Q130,670 180,770 Q210,870 165,970 Q125,1070 175,1160 Q195,1210 165,1240" 
+                  stroke="url(#maneHoneyGrad)" stroke-width="22" stroke-linecap="round" opacity="0.8"/>
+
+            <path d="M70,0 Q25,110 75,220 Q125,330 65,450 Q15,570 70,690 Q130,800 70,920 Q20,1030 75,1140 Q115,1200 75,1240" 
+                  stroke="url(#maneLockGrad2)" stroke-width="15" stroke-linecap="round" opacity="0.8"/>
+
+            <!-- GLOSSY GOLDEN HIGHLIGHT THREADS -->
+            <path d="M115,0 Q165,70 112,140 Q70,210 125,280 Q180,350 115,420 Q65,490 120,560 Q180,630 115,700 Q65,770 120,840 Q180,910 115,980 Q65,1050 120,1120 Q170,1170 115,1220" 
+                  stroke="url(#maneShimmerGrad)" stroke-width="7" stroke-linecap="round"/>
+
+            <path d="M150,10 Q180,90 155,180 Q130,270 165,370 Q195,470 155,570 Q132,670 166,770 Q195,870 155,970 Q128,1070 165,1160" 
+                  stroke="url(#maneShimmerGrad)" stroke-width="4.5" stroke-linecap="round" opacity="0.9"/>
+
+            <!-- FLOWERS WOVEN IN THE BRAID -->
+            <g transform="translate(115, 95)"><circle cx="0" cy="-7" r="5" fill="url(#flowerRoseGrad)"/><circle cx="7" cy="-2" r="5" fill="url(#flowerRoseGrad)"/><circle cx="4" cy="6" r="5" fill="url(#flowerRoseGrad)"/><circle cx="-4" cy="6" r="5" fill="url(#flowerRoseGrad)"/><circle cx="-7" cy="-2" r="5" fill="url(#flowerRoseGrad)"/><circle cx="0" cy="1" r="3.5" fill="#fef08a"/></g>
+            <g transform="translate(85, 230)"><circle cx="0" cy="-6" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="6" cy="-2" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="4" cy="5" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="-4" cy="5" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="-6" cy="-2" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="0" cy="1" r="3" fill="#fef08a"/></g>
+            <g transform="translate(145, 360)"><circle cx="0" cy="-6" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="6" cy="-2" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="4" cy="5" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="-4" cy="5" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="-6" cy="-2" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="0" cy="1" r="3" fill="#fde047"/></g>
+            <g transform="translate(95, 510)"><circle cx="0" cy="-7" r="5" fill="url(#flowerPurpleGrad)"/><circle cx="7" cy="-2" r="5" fill="url(#flowerPurpleGrad)"/><circle cx="4" cy="6" r="5" fill="url(#flowerPurpleGrad)"/><circle cx="-4" cy="6" r="5" fill="url(#flowerPurpleGrad)"/><circle cx="-7" cy="-2" r="5" fill="url(#flowerPurpleGrad)"/><circle cx="0" cy="1" r="3.5" fill="#fef08a"/></g>
+            <g transform="translate(140, 660)"><circle cx="0" cy="-6" r="4.5" fill="url(#flowerRoseGrad)"/><circle cx="6" cy="-2" r="4.5" fill="url(#flowerRoseGrad)"/><circle cx="4" cy="5" r="4.5" fill="url(#flowerRoseGrad)"/><circle cx="-4" cy="5" r="4.5" fill="url(#flowerRoseGrad)"/><circle cx="-6" cy="-2" r="4.5" fill="url(#flowerRoseGrad)"/><circle cx="0" cy="1" r="3" fill="#fde047"/></g>
+            <g transform="translate(80, 800)"><circle cx="0" cy="-6.5" r="4.8" fill="url(#flowerPurpleGrad)"/><circle cx="6.5" cy="-2" r="4.8" fill="url(#flowerPurpleGrad)"/><circle cx="4" cy="5.5" r="4.8" fill="url(#flowerPurpleGrad)"/><circle cx="-4" cy="5.5" r="4.8" fill="url(#flowerPurpleGrad)"/><circle cx="-6.5" cy="-2" r="4.8" fill="url(#flowerPurpleGrad)"/><circle cx="0" cy="1" r="3.2" fill="#fef08a"/></g>
+            <g transform="translate(135, 940)"><circle cx="0" cy="-6" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="6" cy="-2" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="4" cy="5" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="-4" cy="5" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="-6" cy="-2" r="4.5" fill="url(#flowerPinkGrad)"/><circle cx="0" cy="1" r="3" fill="#fde047"/></g>
+            <g transform="translate(95, 1080)"><circle cx="0" cy="-6" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="6" cy="-2" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="4" cy="5" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="-4" cy="5" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="-6" cy="-2" r="4.5" fill="url(#flowerPurpleGrad)"/><circle cx="0" cy="1" r="3" fill="#fef08a"/></g>
         </svg>
     </div>
 
-    <!-- Background Golden Waves (Cabello Mágico de Rapunzel) -->
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-35">
-        <div class="absolute -top-40 -left-40 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-3xl"></div>
-        <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-amber-500/20 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-20 left-1/4 w-[35rem] h-[35rem] bg-purple-700/25 rounded-full blur-3xl"></div>
-        
-        <!-- Subtle Twinkling Stars -->
-        <div class="sparkle-dot absolute top-24 left-[10%] text-amber-300 text-xs">✦</div>
-        <div class="sparkle-dot absolute top-40 right-[15%] text-yellow-200 text-sm" style="animation-delay: 1s;">★</div>
-        <div class="sparkle-dot absolute top-96 left-[20%] text-pink-300 text-xs" style="animation-delay: 1.5s;">✦</div>
-        <div class="sparkle-dot absolute bottom-60 right-[25%] text-amber-200 text-sm" style="animation-delay: 0.8s;">★</div>
+    <!-- Tangled Golden Hair Silhouette Layer (Winding across the entire background) -->
+    <div class="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
+        <svg class="w-full h-full hair-silhouette" viewBox="0 0 1000 2400" preserveAspectRatio="none" fill="none">
+            <defs>
+                <linearGradient id="hairGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fef08a" stop-opacity="0.8"/>
+                    <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.6"/>
+                    <stop offset="100%" stop-color="#b45309" stop-opacity="0.3"/>
+                </linearGradient>
+                <linearGradient id="hairGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#fde047" stop-opacity="0.75"/>
+                    <stop offset="50%" stop-color="#d97706" stop-opacity="0.5"/>
+                    <stop offset="100%" stop-color="#78350f" stop-opacity="0.2"/>
+                </linearGradient>
+                <linearGradient id="hairHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                    <stop offset="50%" stop-color="#fef08a" stop-opacity="0.7"/>
+                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.3"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Lush Right Cascade Undercurrent -->
+            <path d="M820,-50 C980,300 920,700 860,1100 C800,1500 990,1900 880,2450" 
+                  stroke="url(#hairGrad1)" stroke-width="70" stroke-linecap="round" opacity="0.35"/>
+
+            <path d="M750,0 C920,380 840,820 780,1260 C720,1700 930,2050 820,2450" 
+                  stroke="url(#hairGrad2)" stroke-width="50" stroke-linecap="round" opacity="0.4"/>
+
+            <!-- Crossing Flowing Strand 1 -->
+            <path d="M-50,0 C200,300 800,200 650,600 C500,1000 50,850 150,1300 C250,1750 950,1500 800,1950 C650,2400 200,2250 -50,2450" 
+                  stroke="url(#hairGrad1)" stroke-width="32" stroke-linecap="round" opacity="0.35" />
+
+            <!-- Crossing Flowing Strand 2 -->
+            <path d="M1050,100 C750,450 150,400 350,850 C550,1300 950,1100 800,1650 C650,2200 150,2100 150,2450" 
+                  stroke="url(#hairGrad2)" stroke-width="26" stroke-linecap="round" opacity="0.4" />
+
+            <!-- Core Golden Shine Ribbon -->
+            <path d="M-20,50 C230,350 780,240 630,640 C480,1040 70,890 170,1340 C270,1790 930,1540 780,1990 C630,2440 220,2290 -30,2490" 
+                  stroke="url(#hairHighlight)" stroke-width="12" stroke-linecap="round" opacity="0.6" />
+        </svg>
     </div>
 
     <!-- Main Content Container -->
-    <main class="relative z-10 max-w-xl mx-auto px-4 py-8 sm:py-12 flex flex-col items-center">
+    <main class="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12 flex flex-col items-center">
+        
+        <!-- Royal Proclamation Badge with #a06BAF & Ariana Roca Golden Gradient Style -->
+        <div class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-[#a06BAF]/25 border border-[#a06BAF]/60 mb-6 backdrop-blur-md shadow-lg shadow-[#a06BAF]/20">
+            <span class="text-amber-300 text-sm sm:text-base">✨</span>
+            <span class="text-sm sm:text-base md:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 font-royal tracking-wider uppercase drop-shadow-md">
+                REINO DE RAPUNZEL, CELEBRACIÓN REAL
+            </span>
+            <span class="text-amber-300 text-sm sm:text-base">✨</span>
+        </div>
 
-        <!-- Header Section -->
-        <header class="w-full text-center flex flex-col items-center mb-6">
-            <!-- Kingdom of Rapunzel Pill Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rapunzel-purple/80 border border-rapunzel-gold/60 shadow-lg mb-4 text-amber-200 text-xs sm:text-sm font-semibold tracking-wider uppercase">
-                <span>✨</span> Reino de Rapunzel &bull; Celebración Real <span>✨</span>
-            </div>
-
-            <!-- Royal Corona Sunburst Medallion (Clean, Elegant & Interactive) -->
-            <div class="relative my-3 flex items-center justify-center cursor-pointer group" onclick="celebrateRoyalMagic()" title="¡Toca para celebrar la magia!">
-                
-                <!-- Ambient Magic Backlight -->
-                <div class="absolute -inset-4 bg-gradient-to-r from-amber-400/30 via-fuchsia-500/20 to-yellow-300/30 rounded-full blur-2xl magic-pulse"></div>
-
-                <!-- Main Outer Medallion -->
-                <div class="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full border-4 border-amber-300/80 shadow-[0_0_40px_rgba(246,195,68,0.45)] bg-gradient-to-b from-[#3b0d5c] via-[#240638] to-[#120324] flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-105">
+        <!-- Storybook Portal: El Emblemático Sol de Corona de Rapunzel -->
+        <div class="relative w-full max-w-md mx-auto mb-6">
+            <!-- Decorative Frame with #a06BAF & Gold Accents -->
+            <div class="relative rounded-3xl p-3 bg-gradient-to-b from-[#c9a1d6] via-[#a06BAF] to-[#502161] shadow-2xl shadow-[#230b2c]/90">
+                <div class="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#2d0a3d] via-[#48125d] to-[#1d0628] p-4 border border-[#c9a1d6]/50 flex flex-col items-center">
                     
-                    <!-- Spinning Sun Rays Layer -->
-                    <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full sun-spin opacity-80 pointer-events-none">
-                        <defs>
-                            <linearGradient id="sunRayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#fff59d"/>
-                                <stop offset="50%" stop-color="#f6c344"/>
-                                <stop offset="100%" stop-color="#e59e1b"/>
-                            </linearGradient>
-                        </defs>
-                        <!-- 16 Sun Rays -->
-                        <g fill="url(#sunRayGrad)" opacity="0.85">
-                            <polygon points="100,5 96,35 104,35"/>
-                            <polygon points="100,195 96,165 104,165"/>
-                            <polygon points="5,100 35,96 35,104"/>
-                            <polygon points="195,100 165,96 165,104"/>
-                            <polygon points="33,33 58,51 52,57"/>
-                            <polygon points="167,167 142,149 148,143"/>
-                            <polygon points="167,33 149,58 143,52"/>
-                            <polygon points="33,167 51,142 57,148"/>
-                            <polygon points="65,12 73,38 82,35"/>
-                            <polygon points="135,188 127,162 118,165"/>
-                            <polygon points="12,65 38,73 35,82"/>
-                            <polygon points="188,135 162,127 165,118"/>
-                            <polygon points="135,12 127,38 118,35"/>
-                            <polygon points="65,188 73,162 82,165"/>
-                            <polygon points="188,65 162,73 165,82"/>
-                            <polygon points="12,135 38,127 35,118"/>
-                        </g>
-                    </svg>
-
-                    <!-- Central Floating Royal Lantern with Golden Warmth -->
-                    <div class="relative z-10 flex flex-col items-center justify-center text-center lantern-float">
-                        <!-- Top Crown Icon -->
-                        <span class="text-xl sm:text-2xl filter drop-shadow">👑</span>
-                        
-                        <!-- Glowing Center Lantern -->
-                        <div class="my-1 w-16 h-20 sm:w-20 sm:h-24 rounded-2xl bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 p-1 shadow-[0_0_25px_#fde047] flex items-center justify-center border border-yellow-100">
-                            <!-- Golden Sun of Rapunzel Symbol on Lantern -->
-                            <div class="w-full h-full rounded-xl bg-gradient-to-b from-yellow-300/40 via-amber-500/50 to-amber-800/80 flex flex-col items-center justify-center">
-                                <span class="text-2xl sm:text-3xl animate-pulse">☀️</span>
-                                <span class="text-[10px] sm:text-xs font-black text-amber-950 uppercase tracking-widest mt-0.5">Luz Real</span>
-                            </div>
-                        </div>
-
-                        <!-- 5 AÑITOS Golden Ribbon -->
-                        <div class="px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-purple-950 font-black text-xs sm:text-sm tracking-wider shadow-md border border-yellow-100">
-                            5 AÑITOS
-                        </div>
+                    <!-- Castle Silhouette & Night Kingdom Background inside frame -->
+                    <div class="absolute inset-0 opacity-20 pointer-events-none">
+                        <svg viewBox="0 0 400 300" class="w-full h-full" preserveAspectRatio="none">
+                            <path d="M50,300 L50,180 L70,150 L90,180 L90,300 Z M150,300 L150,130 L175,90 L200,130 L200,300 Z M280,300 L280,160 L305,120 L330,160 L330,300 Z" fill="#fde047"/>
+                            <circle cx="80" cy="80" r="1.5" fill="#ffffff"/>
+                            <circle cx="280" cy="60" r="2" fill="#ffffff"/>
+                            <circle cx="340" cy="90" r="1.5" fill="#ffffff"/>
+                            <circle cx="120" cy="50" r="2" fill="#ffffff"/>
+                        </svg>
                     </div>
-                </div>
 
-                <!-- Interactive Hint Tooltip Badge -->
-                <div class="absolute -bottom-2 px-3 py-0.5 rounded-full bg-rapunzel-purple border border-amber-300 text-[10px] text-amber-200 font-bold shadow tracking-wide">
-                    ✨ Toca el sol real ✨
+                    <!-- El Sol de Corona de Rapunzel (Fiel a la imagen) -->
+                    <div class="relative z-10 w-full max-w-[290px] h-[310px] flex items-center justify-center cursor-pointer select-none" id="sundropStage" onclick="celebrateCoronaSun(event)" title="¡Toca el sol para liberar su magia!">
+                        <svg id="coronaSunSvg" viewBox="0 0 300 300" class="w-full h-full corona-sun-container">
+                            <defs>
+                                <!-- Purple Royal Ambient Halo (Exacto al fondo de la imagen) -->
+                                <radialGradient id="royalPurpleAura" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#a855f7" stop-opacity="0.85"/>
+                                    <stop offset="45%" stop-color="#7e22ce" stop-opacity="0.5"/>
+                                    <stop offset="75%" stop-color="#4c0519" stop-opacity="0.2"/>
+                                    <stop offset="100%" stop-color="#2d0a3d" stop-opacity="0"/>
+                                </radialGradient>
+
+                                <!-- Golden Core Radial Gradient -->
+                                <radialGradient id="coronaCoreGold" cx="42%" cy="38%" r="65%">
+                                    <stop offset="0%" stop-color="#fffbeb"/>
+                                    <stop offset="25%" stop-color="#fef08a"/>
+                                    <stop offset="60%" stop-color="#facc15"/>
+                                    <stop offset="85%" stop-color="#eab308"/>
+                                    <stop offset="100%" stop-color="#ca8a04"/>
+                                </radialGradient>
+
+                                <!-- Flame Ray Gradient with 3D Bevel look -->
+                                <linearGradient id="coronaRayGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                                    <stop offset="0%" stop-color="#d97706"/>
+                                    <stop offset="35%" stop-color="#eab308"/>
+                                    <stop offset="75%" stop-color="#facc15"/>
+                                    <stop offset="100%" stop-color="#fef08a"/>
+                                </linearGradient>
+
+                                <!-- Minor Ray Gradient -->
+                                <linearGradient id="coronaMinorRayGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                                    <stop offset="0%" stop-color="#b45309"/>
+                                    <stop offset="50%" stop-color="#f59e0b"/>
+                                    <stop offset="100%" stop-color="#fef08a"/>
+                                </linearGradient>
+
+                                <!-- Par de Rayos Oficiales de Corona (1 Rayo Mayor Flamígero Curvo + 1 Rayo Menor) -->
+                                <g id="coronaFlamePair">
+                                    <!-- Rayo Menor Flameante (orientado a 22.5 grados) -->
+                                    <path d="M150,150 L144,98 C144,90 148,84 153,74 C156,80 159,88 157,98 Z" 
+                                          transform="rotate(22.5 150 150)" 
+                                          fill="url(#coronaMinorRayGrad)" 
+                                          filter="drop-shadow(0 0 2px rgba(66, 11, 78, 0.4))"/>
+
+                                    <!-- Rayo Mayor Flamígero con la clásica silueta curva de Enredados -->
+                                    <path d="M141,102 C138,82 135,62 143,45 C146,38 149,30 148,20 C154,32 155,44 163,52 C171,60 171,72 165,85 C162,91 160,97 159,102 Z" 
+                                          fill="url(#coronaRayGrad)" 
+                                          stroke="#ca8a04" 
+                                          stroke-width="1.2"
+                                          stroke-linejoin="round"/>
+                                    
+                                    <!-- Realce de luz interior sobre el rayo principal -->
+                                    <path d="M145,95 C143,80 140,65 146,50 C148,44 150,38 149,28 C152,36 153,44 158,52 C163,60 162,70 158,82" 
+                                          fill="none" 
+                                          stroke="#fffbeb" 
+                                          stroke-width="1.6" 
+                                          stroke-linecap="round" 
+                                          opacity="0.85"/>
+                                </g>
+                            </defs>
+
+                            <!-- 1. Aura resplandeciente púrpura (Igual a la de la foto) -->
+                            <circle cx="150" cy="150" r="142" fill="url(#royalPurpleAura)"/>
+
+                            <!-- 2. Grupo de los 16 Rayos Flamígeros Giratorios (8 pares a 45 grados) -->
+                            <g class="corona-rays-spin">
+                                <use href="#coronaFlamePair" transform="rotate(0 150 150)"/>
+                                <use href="#coronaFlamePair" transform="rotate(45 150 150)"/>
+                                <use href="#coronaFlamePair" transform="rotate(90 150 150)"/>
+                                <use href="#coronaFlamePair" transform="rotate(135 150 150)"/>
+                                <use href="#coronaFlamePair" transform="rotate(180 150 150)"/>
+                                <use href="#coronaFlamePair" transform="rotate(225 150 150)"/>
+                                <use href="#coronaFlamePair" transform="rotate(270 150 150)"/>
+                                <use href="#coronaFlamePair" transform="rotate(315 150 150)"/>
+                            </g>
+
+                            <!-- 3. Anillo Púrpura Profundo delimitador (característico de la imagen) -->
+                            <circle cx="150" cy="150" r="54" fill="none" stroke="#480b59" stroke-width="5.5" opacity="0.95"/>
+                            <circle cx="150" cy="150" r="52.5" fill="none" stroke="#2d0637" stroke-width="2"/>
+
+                            <!-- 4. Disco Solar Central Dorado -->
+                            <circle cx="150" cy="150" r="50" fill="url(#coronaCoreGold)" stroke="#ca8a04" stroke-width="1.5"/>
+
+                            <!-- 5. Destello y Brillo interior del disco -->
+                            <ellipse cx="143" cy="138" rx="28" ry="18" fill="#ffffff" opacity="0.4" transform="rotate(-15 143 138)"/>
+                            <circle cx="138" cy="132" r="7" fill="#ffffff" opacity="0.75"/>
+
+                            <!-- Destellos mágicos en las puntas -->
+                            <g class="animate-sparkle-1">
+                                <polygon points="50,55 52,60 57,62 52,64 50,69 48,64 43,62 48,60" fill="#ffffff"/>
+                                <circle cx="250" cy="65" r="3" fill="#fef08a"/>
+                            </g>
+                            <g class="animate-sparkle-2">
+                                <polygon points="245,235 247,240 252,242 247,244 245,249 243,244 238,242 243,240" fill="#fde047"/>
+                                <circle cx="55" cy="235" r="3" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Tap prompt banner styled with #a06BAF -->
+                    <div class="mt-2 text-center">
+                        <button onclick="celebrateCoronaSun(event)" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-2xl sm:text-3xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 border border-[#c9a1d6]/50">
+                            <span>✨ Toca el sol para crear magia ✨</span>
+                        </button>
+                    </div>
+
                 </div>
             </div>
+        </div>
 
-            <p class="font-cursive text-3xl sm:text-4xl text-rapunzel-gold glow-text-gold tracking-wide mt-3 mb-1">
+        <!-- Main Celebrant Proclamation -->
+        <div class="text-center space-y-3 mb-8">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl text-amber-300 font-cursive tracking-wide drop-shadow-md">
                 ¡Un nuevo sueño comienza hoy!
-            </p>
-
-            <h1 class="font-serif text-3xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-amber-300 to-yellow-100 glow-text-gold tracking-wide mt-1">
+            </h2>
+            
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 font-royal tracking-wider drop-shadow-lg">
                 ARIANA ROCA
             </h1>
-
-            <div class="flex items-center gap-3 mt-2">
-                <span class="h-[1px] w-12 bg-gradient-to-r from-transparent to-amber-400"></span>
-                <span class="text-xs sm:text-sm uppercase tracking-[0.3em] text-fuchsia-200 font-semibold">
-                    Cumpleaños Real #5
-                </span>
-                <span class="h-[1px] w-12 bg-gradient-to-l from-transparent to-amber-400"></span>
-            </div>
-        </header>
-
-        <!-- Royal Parchment Card -->
-        <section class="w-full bg-gradient-to-b from-[#2d0b49]/95 via-[#23063b]/95 to-[#19032b]/95 rounded-3xl p-6 sm:p-8 border-2 border-amber-400/50 shadow-2xl backdrop-blur-md mb-8">
             
-            <p class="text-center text-sm sm:text-base text-purple-100 leading-relaxed mb-6 font-medium">
-                Con la bendición del reino y la magia de las luces flotantes, tenemos el honor de invitarte a celebrar los 
-                <span class="font-bold text-amber-300 text-lg">5 añitos</span> de nuestra adorada princesa 
-                <span class="font-bold text-amber-300">Ariana</span>. ¡Será un día repleto de magia, risas y hermosas sorpresas!
+            <!-- Age badge styled with #a06BAF -->
+            <div class="inline-block px-6 py-1.5 rounded-full bg-[#3b1847]/80 border border-[#a06BAF]/70 shadow-lg shadow-[#a06BAF]/20">
+                <span class="text-xl sm:text-2xl text-amber-200 font-royal tracking-widest font-semibold">5 AÑITOS</span>
+            </div>
+
+            <!-- Celebratory Description (Cursive & Yellow) -->
+            <p class="text-2xl sm:text-3xl md:text-4xl text-amber-200 font-cursive max-w-xl mx-auto leading-relaxed pt-3 drop-shadow">
+                Acompáñanos a celebrar una tarde mágica llena de risas, linternas doradas y aventuras inolvidables.
+            </p>
+        </div>
+
+        <!-- Royal Countdown Section with #a06BAF accents & Perched Pascal Chameleon -->
+        <section class="w-full royal-card rounded-3xl p-6 mb-8 text-center border-[#a06BAF]/50 relative">
+            
+            <!-- STORYBOOK CHAMELEON PERCHED ON COUNTDOWN (Left side, inverted facing the timers) -->
+            <div id="pascalCountdownWrapper" onclick="changePascalColor(event)" title="¡Tócame para cambiar mi color!" 
+                 class="absolute -top-14 sm:-top-18 left-3 sm:left-6 w-20 h-20 sm:w-24 sm:h-24 z-20 chameleon-peeking select-none cursor-pointer active:scale-95 transition-transform -scale-x-100" 
+                 role="button" aria-label="Cambiar color de Pascal">
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-xl">
+                    <!-- Tail curled on the card edge -->
+                    <path class="pascal-tail" d="M25,75 C10,80 5,65 18,58 C26,52 30,62 24,68" stroke="#16a34a" stroke-width="6" stroke-linecap="round" fill="none"/>
+                    <!-- Chubby Body -->
+                    <ellipse cx="50" cy="55" rx="28" ry="20" fill="url(#chameleonSkin)"/>
+                    <!-- Friendly Head -->
+                    <ellipse cx="70" cy="42" rx="19" ry="16" fill="url(#chameleonSkin)"/>
+                    <path class="pascal-smile" d="M84,45 Q90,42 84,39" stroke="#14532d" stroke-width="2.5" fill="none"/>
+                    <!-- Big Inquisitive Eye -->
+                    <circle cx="70" cy="38" r="10" fill="#fef08a"/>
+                    <circle cx="72" cy="38" r="5" fill="#14532d"/>
+                    <circle cx="71" cy="36" r="2" fill="#ffffff"/>
+                    <circle cx="74" cy="40" r="1" fill="#ffffff"/>
+                    <!-- Cheek Blush -->
+                    <circle cx="63" cy="46" r="4" fill="#fb7185" opacity="0.5"/>
+                    <!-- Head Crest -->
+                    <path class="pascal-crest" d="M56,28 Q64,22 72,30" stroke="#16a34a" stroke-width="4" stroke-linecap="round" fill="none"/>
+                    <!-- Front Feet resting on the border -->
+                    <ellipse class="pascal-foot" cx="60" cy="72" rx="6" ry="4" fill="#16a34a"/>
+                    <ellipse class="pascal-foot" cx="40" cy="72" rx="6" ry="4" fill="#16a34a"/>
+                    <!-- Tiny flower on his head in #a06BAF -->
+                    <circle cx="62" cy="24" r="3.5" fill="#a06BAF"/>
+                    <circle cx="62" cy="24" r="1.2" fill="#fef08a"/>
+                </svg>
+            </div>
+
+            <h3 class="text-lg sm:text-xl font-bold text-amber-300 tracking-widest font-royal uppercase mb-4 flex items-center justify-center gap-2">
+                <span>☀️</span> Cuenta Regresiva Real <span>☀️</span>
+            </h3>
+            
+            <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-md mx-auto">
+                <div class="bg-[#240b2c]/85 border border-[#a06BAF]/45 rounded-2xl p-2 sm:p-3 flex flex-col items-center shadow-inner">
+                    <span id="days" class="text-2xl sm:text-4xl font-bold text-amber-300 font-royal">00</span>
+                    <span class="text-xs sm:text-sm text-[#c9a1d6] uppercase tracking-wider font-storybook">Días</span>
+                </div>
+                <div class="bg-[#240b2c]/85 border border-[#a06BAF]/45 rounded-2xl p-2 sm:p-3 flex flex-col items-center shadow-inner">
+                    <span id="hours" class="text-2xl sm:text-4xl font-bold text-amber-300 font-royal">00</span>
+                    <span class="text-xs sm:text-sm text-[#c9a1d6] uppercase tracking-wider font-storybook">Horas</span>
+                </div>
+                <div class="bg-[#240b2c]/85 border border-[#a06BAF]/45 rounded-2xl p-2 sm:p-3 flex flex-col items-center shadow-inner">
+                    <span id="minutes" class="text-2xl sm:text-4xl font-bold text-amber-300 font-royal">00</span>
+                    <span class="text-xs sm:text-sm text-[#c9a1d6] uppercase tracking-wider font-storybook">Min</span>
+                </div>
+                <div class="bg-[#240b2c]/85 border border-[#a06BAF]/45 rounded-2xl p-2 sm:p-3 flex flex-col items-center shadow-inner">
+                    <span id="seconds" class="text-2xl sm:text-4xl font-bold text-amber-300 font-royal">00</span>
+                    <span class="text-xs sm:text-sm text-[#c9a1d6] uppercase tracking-wider font-storybook">Seg</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Date & Time Section with #a06BAF accents -->
+        <section class="w-full royal-card rounded-3xl p-6 sm:p-8 mb-8 text-center border-[#a06BAF]/50">
+            <div class="w-14 h-14 mx-auto rounded-full bg-[#a06BAF]/20 border border-[#a06BAF]/60 flex items-center justify-center text-2xl text-amber-300 mb-3 shadow-inner shadow-[#a06BAF]/30">
+                📅
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-amber-300 tracking-widest font-royal uppercase mb-2">
+                FECHA & HORA
+            </h3>
+            
+            <!-- Date in Great Vibes Cursive -->
+            <p class="text-3xl sm:text-4xl md:text-5xl text-amber-200 font-cursive my-2">
+                Sábado, 03 de Octubre de 2026
+            </p>
+            
+            <p class="text-xl sm:text-2xl text-[#f3e8f6] font-storybook font-semibold tracking-wide mb-5">
+                Hora Real: <span class="text-amber-300 font-bold">3:00 p. m.</span>
+            </p>
+            
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=5+A%C3%B1itos+de+Ariana+Roca+%E2%9C%A8+Reino+de+Rapunzel&dates=20261003T210000Z/20261004T010000Z&details=%C2%A1Un+nuevo+sue%C3%B1o+comienza+hoy!+Celebremos+los+5+a%C3%B1itos+de+Ariana+Roca+al+estilo+Rapunzel.+Garita:+C%C3%B3digo+642.&location=Residencial+El+%C3%81lamo,+Casa+7,+Balcones+de+San+Crist%C3%B3bal,+Zona+8+de+Mixco" 
+               target="_blank" 
+               class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-2xl sm:text-3xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 border border-[#c9a1d6]/50">
+                <span>🗓️</span>
+                <span>Agregar al Calendario Real</span>
+            </a>
+        </section>
+
+        <!-- Location Section with #a06BAF accents -->
+        <section class="w-full royal-card rounded-3xl p-6 sm:p-8 mb-8 text-center border-[#a06BAF]/50 relative">
+            
+            <!-- MINI CORONA SUN PERCHED ON TOP-LEFT OF LOCATION CARD -->
+            <div id="miniSunWrapper" onclick="celebrateMiniSun(event)" title="¡Toca el sol para liberar su magia!" 
+                 class="absolute -top-12 sm:-top-16 left-3 sm:left-6 w-20 h-20 sm:w-24 sm:h-24 z-20 cursor-pointer select-none active:scale-95 transition-transform" 
+                 role="button" aria-label="Tocar sol de Corona">
+                <svg id="miniCoronaSunSvg" viewBox="0 0 300 300" class="w-full h-full corona-sun-container">
+                    <!-- 1. Aura resplandeciente púrpura -->
+                    <circle cx="150" cy="150" r="142" fill="url(#royalPurpleAura)"/>
+
+                    <!-- 2. Grupo de los 16 Rayos Flamígeros Giratorios -->
+                    <g class="corona-rays-spin">
+                        <use href="#coronaFlamePair" transform="rotate(0 150 150)"/>
+                        <use href="#coronaFlamePair" transform="rotate(45 150 150)"/>
+                        <use href="#coronaFlamePair" transform="rotate(90 150 150)"/>
+                        <use href="#coronaFlamePair" transform="rotate(135 150 150)"/>
+                        <use href="#coronaFlamePair" transform="rotate(180 150 150)"/>
+                        <use href="#coronaFlamePair" transform="rotate(225 150 150)"/>
+                        <use href="#coronaFlamePair" transform="rotate(270 150 150)"/>
+                        <use href="#coronaFlamePair" transform="rotate(315 150 150)"/>
+                    </g>
+
+                    <!-- 3. Anillo Púrpura Profundo delimitador -->
+                    <circle cx="150" cy="150" r="54" fill="none" stroke="#480b59" stroke-width="5.5" opacity="0.95"/>
+                    <circle cx="150" cy="150" r="52.5" fill="none" stroke="#2d0637" stroke-width="2"/>
+
+                    <!-- 4. Disco Solar Central Dorado -->
+                    <circle cx="150" cy="150" r="50" fill="url(#coronaCoreGold)" stroke="#ca8a04" stroke-width="1.5"/>
+
+                    <!-- 5. Destello y Brillo interior del disco -->
+                    <ellipse cx="143" cy="138" rx="28" ry="18" fill="#ffffff" opacity="0.4" transform="rotate(-15 143 138)"/>
+                    <circle cx="138" cy="132" r="7" fill="#ffffff" opacity="0.75"/>
+                </svg>
+            </div>
+
+            <div class="w-14 h-14 mx-auto rounded-full bg-[#a06BAF]/20 border border-[#a06BAF]/60 flex items-center justify-center text-2xl text-amber-300 mb-3 shadow-inner shadow-[#a06BAF]/30">
+                🏰
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-amber-300 tracking-widest font-royal uppercase mb-2">
+                LUGAR DE LA CELEBRACIÓN
+            </h3>
+            
+            <!-- Venue Name & Address in Great Vibes Cursive -->
+            <h4 class="text-3xl sm:text-4xl text-amber-200 font-cursive mb-2">
+                Casa Familia Roca
+            </h4>
+            
+            <p class="text-2xl sm:text-3xl text-[#f3e8f6] font-cursive max-w-lg mx-auto leading-relaxed mb-6">
+                4av 9-20 Residencial El Álamo, Casa 7, Balcones de San Cristóbal, Zona 8 de Mixco
             </p>
 
-            <!-- Live Countdown Timer -->
-            <div class="w-full bg-rapunzel-deepNight/80 rounded-2xl p-4 border border-amber-400/30 mb-6 text-center">
-                <div class="text-xs uppercase tracking-widest text-amber-300/80 mb-2 font-bold flex items-center justify-center gap-2">
-                    <span>⏳</span> Cuenta Regresiva Real <span>⏳</span>
+            <!-- Gate Code Box (Centered & Mobile Optimized with #a06BAF) -->
+            <div class="w-full max-w-xs sm:max-w-sm mx-auto bg-[#240b2c]/90 border border-[#a06BAF]/60 rounded-2xl p-4 sm:p-5 mb-6 shadow-inner shadow-[#a06BAF]/20 flex flex-col items-center justify-center text-center gap-3">
+                <div class="flex flex-col items-center justify-center text-center">
+                    <span class="block text-xs sm:text-sm uppercase tracking-wider text-[#c9a1d6] font-storybook">Acceso en Garita</span>
+                    <span class="text-3xl sm:text-4xl font-bold text-amber-300 tracking-widest font-royal my-0.5" id="garitaCodeText">642</span>
                 </div>
-                <div class="grid grid-cols-4 gap-2 text-center">
-                    <div class="bg-purple-950/70 rounded-xl p-2 border border-purple-800">
-                        <div id="days" class="text-xl sm:text-3xl font-black text-amber-300 font-serif">--</div>
-                        <div class="text-[10px] sm:text-xs text-purple-200 uppercase font-bold mt-1">Días</div>
-                    </div>
-                    <div class="bg-purple-950/70 rounded-xl p-2 border border-purple-800">
-                        <div id="hours" class="text-xl sm:text-3xl font-black text-amber-300 font-serif">--</div>
-                        <div class="text-[10px] sm:text-xs text-purple-200 uppercase font-bold mt-1">Horas</div>
-                    </div>
-                    <div class="bg-purple-950/70 rounded-xl p-2 border border-purple-800">
-                        <div id="minutes" class="text-xl sm:text-3xl font-black text-amber-300 font-serif">--</div>
-                        <div class="text-[10px] sm:text-xs text-purple-200 uppercase font-bold mt-1">Min</div>
-                    </div>
-                    <div class="bg-purple-950/70 rounded-xl p-2 border border-purple-800">
-                        <div id="seconds" class="text-xl sm:text-3xl font-black text-amber-300 font-serif">--</div>
-                        <div class="text-[10px] sm:text-xs text-purple-200 uppercase font-bold mt-1">Seg</div>
-                    </div>
-                </div>
-
-                <!-- Calendar Reminder Button -->
-                <button onclick="addToGoogleCalendar()" class="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-purple-950 font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all active:scale-95">
-                    <span>📅</span> Agregar al Calendario Real
+                <button onclick="copyGaritaCode()" id="copyGaritaBtn" class="w-full max-w-[220px] py-2.5 px-4 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-2xl sm:text-3xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 border border-[#c9a1d6]/50">
+                    <span>📋</span>
+                    <span id="copyBtnText">Copiar Código</span>
                 </button>
             </div>
 
-            <!-- Details Grid -->
-            <div class="space-y-4">
-                
-                <!-- Date & Time Row -->
-                <div class="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-purple-950/50 border border-purple-800/60">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-400/20 flex items-center justify-center text-xl sm:text-2xl text-amber-300 flex-shrink-0 border border-amber-400/40">
-                        ☀️
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <h2 class="text-xs uppercase tracking-wider text-amber-300 font-bold">Fecha & Hora</h2>
-                        <p class="text-base sm:text-lg font-bold text-white mt-0.5">Sábado, 03 de Octubre del 2026</p>
-                        <p class="text-sm text-purple-200 font-semibold">10:00 a. m.</p>
-                    </div>
-                </div>
-
-                <!-- Location & Garita Row -->
-                <div class="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-purple-950/50 border border-purple-800/60">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-400/20 flex items-center justify-center text-xl sm:text-2xl text-amber-300 flex-shrink-0 border border-amber-400/40">
-                        🏰
-                    </div>
-                    <div class="flex-1 w-full min-w-0">
-                        <h2 class="text-xs uppercase tracking-wider text-amber-300 font-bold">Lugar de la Celebración</h2>
-                        <p class="text-base sm:text-lg font-bold text-white mt-0.5">Casa Fam. Roca</p>
-                        <p class="text-sm text-purple-200 leading-snug mt-1 break-words">
-                            4av 9-20 Residencial El Álamo, Casa 7, Balcones de San Cristóbal, Zona 8 de Mixco.
-                        </p>
-
-                        <!-- Gate Code Box (Mobile-friendly responsive alignment) -->
-                        <div class="mt-3 p-3 rounded-xl bg-rapunzel-deepNight/90 border border-amber-400/60 w-full flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-                            <div class="min-w-0">
-                                <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-purple-300 font-bold block">Acceso en Garita</span>
-                                <span class="text-lg sm:text-xl font-black text-amber-300 font-mono tracking-wider sm:tracking-widest block">CÓDIGO: 642</span>
-                            </div>
-                            <button onclick="copyGaritaCode()" class="w-full sm:w-auto px-3.5 py-2 bg-amber-400 hover:bg-amber-300 text-purple-950 font-bold text-xs rounded-lg shadow active:scale-95 transition-all flex items-center justify-center gap-1.5 flex-shrink-0">
-                                <span id="copyIcon">📋</span> <span id="copyText">Copiar</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GPS Navigation Links (Google Maps & Waze) -->
-                <div class="grid grid-cols-2 gap-3 pt-1">
-                    <a href="https://maps.google.com/?cid=7567796335614637130" target="_blank" rel="noopener noreferrer" 
-                       class="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-gradient-to-r from-red-600/90 to-rose-700/90 hover:from-red-500 hover:to-rose-600 text-white font-bold text-xs sm:text-sm shadow-lg border border-red-400/40 active:scale-95 transition-all text-center">
-                        <span>🗺️</span> Google Maps
-                    </a>
-                    <a href="https://waze.com/ul?q=Residencial+El+Alamo+Balcones+de+San+Cristobal+Mixco" target="_blank" rel="noopener noreferrer"
-                       class="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-gradient-to-r from-sky-600/90 to-cyan-700/90 hover:from-sky-500 hover:to-cyan-600 text-white font-bold text-xs sm:text-sm shadow-lg border border-sky-400/40 active:scale-95 transition-all text-center">
-                        <span>🚗</span> Waze
-                    </a>
-                </div>
-
+            <!-- GPS Navigation Links -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+                <a href="https://maps.google.com/?cid=7567796335614637130" target="_blank" class="w-full sm:w-1/2 py-3 px-4 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-2xl sm:text-3xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 border border-[#c9a1d6]/50">
+                    <span>🗺️</span>
+                    <span>Abrir en Google Maps</span>
+                </a>
+                <a href="https://waze.com/ul?q=Residencial+El+Alamo+Balcones+de+San+Cristobal+Mixco" target="_blank" class="w-full sm:w-1/2 py-3 px-4 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-2xl sm:text-3xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 border border-[#c9a1d6]/50">
+                    <span>🚗</span>
+                    <span>Abrir en Waze</span>
+                </a>
             </div>
-
-            <!-- Dress Code & Gifts Row -->
-            <div class="mt-6 pt-6 border-t border-purple-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                <!-- Dress Code -->
-                <div class="p-3.5 rounded-2xl bg-purple-950/40 border border-purple-800/40 text-center">
-                    <span class="text-2xl block mb-1">👗</span>
-                    <h3 class="text-xs uppercase tracking-wider text-amber-300 font-bold">Vestuario</h3>
-                    <p class="text-xs text-purple-200 mt-1 font-medium">
-                        ¡Ropa cómoda para divertirse! Los pequeños pueden venir con su disfraz favorito de princesa o aventurero.
-                    </p>
-                </div>
-
-                <!-- Short, Polite Gift Shower Note -->
-                <div class="p-3.5 rounded-2xl bg-purple-950/40 border border-purple-800/40 text-center">
-                    <span class="text-2xl block mb-1">🎁</span>
-                    <h3 class="text-xs uppercase tracking-wider text-amber-300 font-bold">Lluvia de Regalos</h3>
-                    <p class="text-xs text-purple-200 mt-1 font-medium">
-                        Si deseas consentir a la princesa con un lindo detalle, ¡lo recibiremos con mucho amor! ✨
-                    </p>
-                </div>
-
-            </div>
-
         </section>
 
-        <!-- Floating Lantern of Wishes (Google Forms Integration) -->
-        <section class="w-full bg-gradient-to-b from-[#310b50] to-[#1e0433] rounded-3xl p-6 border-2 border-amber-400/40 shadow-2xl mb-8 text-center relative overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl pointer-events-none"></div>
-            
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-400/20 border border-amber-300/40 flex items-center justify-center text-3xl mb-3 shadow-inner">
-                🏮
-            </div>
-
-            <h2 class="font-serif text-lg sm:text-xl font-bold text-amber-200">
-                Linterna de los Deseos para Ariana
-            </h2>
-            <p class="text-xs sm:text-sm text-purple-200 mt-1 mb-4 max-w-md mx-auto">
-                Escribe un lindo mensaje o bendición para Ariana en su linterna real para llenar su cielo de luz.
-            </p>
-
-            <button onclick="launchWishLantern()" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-purple-950 font-black text-sm rounded-2xl shadow-[0_0_20px_rgba(246,195,68,0.5)] active:scale-95 transition-all inline-flex items-center justify-center gap-2">
-                <span>✨</span> Elevar mi Linterna de Deseos <span>🏮</span>
-            </button>
-        </section>
-
-        <!-- RSVP Section (Google Apps Script Fetch Integration) -->
-        <section id="rsvpSection" class="w-full bg-gradient-to-b from-[#2d0b49]/95 via-[#23063b]/95 to-[#19032b]/95 rounded-3xl p-6 sm:p-8 border-2 border-amber-400/50 shadow-2xl backdrop-blur-md mb-8 text-center">
-            
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-400/20 border border-amber-300/40 flex items-center justify-center text-3xl mb-3">
-                💌
-            </div>
-
-            <!-- RSVP Header and deadline notice -->
-            <div id="rsvpHeaderBlock">
-                <h2 class="font-serif text-xl sm:text-2xl font-bold text-amber-200">
-                    Confirmación de Asistencia
-                </h2>
-                <p class="text-xs sm:text-sm text-purple-200 mt-1 mb-6 font-medium">
-                    Por favor confírmanos antes del <span class="text-amber-300 font-bold">26 de Septiembre</span> para preparar todas las sorpresas del reino.
+        <!-- Attire & Gift Shower Grid with #a06BAF theme -->
+        <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+            <!-- Attire Card -->
+            <div class="royal-card rounded-3xl p-6 text-center border-[#a06BAF]/50 flex flex-col items-center justify-center">
+                <div class="text-3xl mb-2">👗</div>
+                <h3 class="text-base sm:text-lg font-bold text-amber-300 tracking-wider font-royal uppercase mb-2">
+                    VESTUARIO
+                </h3>
+                <p class="text-2xl sm:text-3xl text-[#f3e8f6] font-cursive leading-snug">
+                    ¡Ven cómodo y listo para divertirte! Si deseas lucir tu disfraz favorito del reino, ¡será maravilloso!
                 </p>
             </div>
 
-            <!-- In-Page Thank You Card (Hidden by default, shown upon tapping confirm) -->
-            <div id="rsvpSuccessCard" class="hidden p-5 rounded-2xl bg-purple-950/80 border-2 border-amber-400/70 text-center shadow-lg my-2">
-                <div class="text-4xl mb-2">👑</div>
-                <h3 class="text-lg sm:text-xl font-serif font-black text-amber-300">¡Gracias por tu confirmación! 💜</h3>
-                <p id="rsvpSuccessDetails" class="text-sm text-purple-100 mt-2 font-medium"></p>
-                <div class="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-200 text-xs font-semibold">
-                    <span>✨</span> Tu respuesta ha sido registrada en el Reino de Rapunzel
+            <!-- Gift Shower Card -->
+            <div class="royal-card rounded-3xl p-6 text-center border-[#a06BAF]/50 flex flex-col items-center justify-center relative">
+                <!-- MINI CORONA SUN PERCHED ON TOP-LEFT OF GIFT SHOWER CARD -->
+                <div id="giftSunWrapper" onclick="celebrateMiniSun(event)" title="¡Toca el sol para liberar su magia!" 
+                     class="absolute -top-10 sm:-top-12 left-2 sm:left-4 w-16 h-16 sm:w-20 sm:h-20 z-20 cursor-pointer select-none active:scale-95 transition-transform" 
+                     role="button" aria-label="Tocar sol de Corona">
+                    <svg viewBox="0 0 300 300" class="w-full h-full corona-sun-container">
+                        <!-- 1. Aura resplandeciente púrpura -->
+                        <circle cx="150" cy="150" r="142" fill="url(#royalPurpleAura)"/>
+
+                        <!-- 2. Grupo de los 16 Rayos Flamígeros Giratorios -->
+                        <g class="corona-rays-spin">
+                            <use href="#coronaFlamePair" transform="rotate(0 150 150)"/>
+                            <use href="#coronaFlamePair" transform="rotate(45 150 150)"/>
+                            <use href="#coronaFlamePair" transform="rotate(90 150 150)"/>
+                            <use href="#coronaFlamePair" transform="rotate(135 150 150)"/>
+                            <use href="#coronaFlamePair" transform="rotate(180 150 150)"/>
+                            <use href="#coronaFlamePair" transform="rotate(225 150 150)"/>
+                            <use href="#coronaFlamePair" transform="rotate(270 150 150)"/>
+                            <use href="#coronaFlamePair" transform="rotate(315 150 150)"/>
+                        </g>
+
+                        <!-- 3. Anillo Púrpura Profundo delimitador -->
+                        <circle cx="150" cy="150" r="54" fill="none" stroke="#480b59" stroke-width="5.5" opacity="0.95"/>
+                        <circle cx="150" cy="150" r="52.5" fill="none" stroke="#2d0637" stroke-width="2"/>
+
+                        <!-- 4. Disco Solar Central Dorado -->
+                        <circle cx="150" cy="150" r="50" fill="url(#coronaCoreGold)" stroke="#ca8a04" stroke-width="1.5"/>
+
+                        <!-- 5. Destello y Brillo interior del disco -->
+                        <ellipse cx="143" cy="138" rx="28" ry="18" fill="#ffffff" opacity="0.4" transform="rotate(-15 143 138)"/>
+                        <circle cx="138" cy="132" r="7" fill="#ffffff" opacity="0.75"/>
+                    </svg>
                 </div>
+
+                <div class="text-3xl mb-2">🎁</div>
+                <h3 class="text-base sm:text-lg font-bold text-amber-300 tracking-wider font-royal uppercase mb-2">
+                    LLUVIA DE REGALOS
+                </h3>
+                <p class="text-2xl sm:text-3xl text-[#f3e8f6] font-cursive leading-snug">
+                    Si deseas consentir a la princesa con un lindo detalle, ¡lo recibiremos con mucho amor! ✨
+                </p>
             </div>
+        </div>
 
-            <!-- Form -->
-            <form id="rsvpForm" onsubmit="handleRSVP(event)" class="space-y-4 max-w-md mx-auto text-left">
-                <div>
-                    <label class="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
-                        Nombre de la Familia / Invitado *
-                    </label>
-                    <input type="text" id="guestName" required placeholder="Ej. Familia Rodríguez o tu nombre"
-                           class="w-full px-4 py-3 rounded-xl bg-purple-950/80 border border-purple-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/40 text-white placeholder-purple-400 text-sm outline-none transition-all">
-                </div>
-
-                <!-- Responsive Grid: 1 col on mobile, 2 cols on tablets/desktop -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-3">
-                    <div class="w-full">
-                        <label class="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
-                            ¿Asistirás? *
-                        </label>
-                        <select id="attendanceStatus" class="w-full px-3.5 py-3 rounded-xl bg-purple-950/90 border border-purple-700 focus:border-amber-400 text-white text-xs sm:text-sm outline-none">
-                            <option value="si" class="bg-[#1f0535] text-white">¡Sí, con alegría! 🎉</option>
-                            <option value="no" class="bg-[#1f0535] text-white">Lo lamento, no podré 😢</option>
-                        </select>
-                    </div>
-                    <div class="w-full">
-                        <label class="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
-                            Personas *
-                        </label>
-                        <select id="guestCount" class="w-full px-3.5 py-3 rounded-xl bg-purple-950/90 border border-purple-700 focus:border-amber-400 text-white text-xs sm:text-sm outline-none">
-                            <option value="1" class="bg-[#1f0535] text-white">1 Persona</option>
-                            <option value="2" selected class="bg-[#1f0535] text-white">2 Personas</option>
-                            <option value="3" class="bg-[#1f0535] text-white">3 Personas</option>
-                            <option value="4" class="bg-[#1f0535] text-white">4 Personas</option>
-                            <option value="5" class="bg-[#1f0535] text-white">5 Personas</option>
-                            <option value="6" class="bg-[#1f0535] text-white">6+ Personas</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Submit Button Container (Removed and replaced upon confirm) -->
-                <div id="rsvpButtonContainer" class="pt-2">
-                    <button type="submit" id="btnConfirmar"
-                            class="w-full py-3.5 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-purple-950 font-black text-sm sm:text-base rounded-2xl shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2">
-                        <span>👑</span> CONFIRMAR
-                    </button>
-                </div>
-            </form>
-
+        <!-- Wish Lantern Card with #a06BAF styling -->
+        <section class="w-full royal-card rounded-3xl p-6 sm:p-8 mb-8 text-center border-[#a06BAF]/50 relative overflow-hidden">
+            <div class="relative z-10 flex flex-col items-center">
+                <div class="text-3xl sm:text-4xl mb-2 animate-lantern">🏮</div>
+                <h3 class="text-lg sm:text-xl font-bold text-amber-300 tracking-widest font-royal uppercase mb-2">
+                    LINTERNA DE LOS DESEOS
+                </h3>
+                <p class="text-2xl sm:text-3xl text-[#f3e8f6] font-cursive max-w-md mx-auto leading-relaxed mb-5">
+                    Deja un mensaje de amor y bendición para que ilumine el camino de Ariana en su 5to cumpleaños.
+                </p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScP_dK-Vd_9ePZl3m0oBfZ1kXv7w/viewform" target="_blank" 
+                   class="w-full max-w-sm py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-2xl sm:text-3xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 flex items-center justify-center text-center border border-[#c9a1d6]/50">
+                    Elevar mi linterna de deseos
+                </a>
+            </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="w-full text-center py-6 text-purple-300/80 text-xs">
-            <p class="font-cursive text-2xl text-amber-300/90 mb-1">
-                ¡Te esperamos para hacer este sueño realidad!
-            </p>
-            <p class="font-semibold text-amber-200/90">
-                Familia Roca &bull; Reino de Rapunzel 2026
-            </p>
+        <!-- RSVP Section with Perched Chameleon and #a06BAF palette -->
+        <section class="w-full royal-card rounded-3xl p-6 sm:p-8 text-center border-[#a06BAF]/50 relative">
+            
+            <!-- STORYBOOK CHAMELEON ASOMADO SOBRE LA TARJETA (Agrandado e interactivo con tap) -->
+            <div id="pascalWrapper" onclick="changePascalColor(event)" title="¡Tócame para cambiar mi color!" 
+                 class="absolute -top-16 sm:-top-20 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 z-20 chameleon-peeking select-none cursor-pointer active:scale-95 transition-transform" 
+                 role="button" aria-label="Cambiar color de Pascal">
+                <svg id="pascalSvg" viewBox="0 0 100 100" class="w-full h-full drop-shadow-xl">
+                    <defs>
+                        <radialGradient id="chameleonSkin" cx="40%" cy="40%" r="60%">
+                            <stop id="pascalStop1" offset="0%" stop-color="#4ade80"/>
+                            <stop id="pascalStop2" offset="60%" stop-color="#22c55e"/>
+                            <stop id="pascalStop3" offset="100%" stop-color="#15803d"/>
+                        </radialGradient>
+                    </defs>
+                    <!-- Tail curled on the card edge -->
+                    <path class="pascal-tail" id="pascalTail" d="M25,75 C10,80 5,65 18,58 C26,52 30,62 24,68" stroke="#16a34a" stroke-width="6" stroke-linecap="round" fill="none"/>
+                    <!-- Chubby Body -->
+                    <ellipse id="pascalBody" cx="50" cy="55" rx="28" ry="20" fill="url(#chameleonSkin)"/>
+                    <!-- Friendly Head -->
+                    <ellipse id="pascalHead" cx="70" cy="42" rx="19" ry="16" fill="url(#chameleonSkin)"/>
+                    <path class="pascal-smile" id="pascalSmile" d="M84,45 Q90,42 84,39" stroke="#14532d" stroke-width="2.5" fill="none"/>
+                    <!-- Big Inquisitive Eye -->
+                    <circle cx="70" cy="38" r="10" fill="#fef08a"/>
+                    <circle cx="72" cy="38" r="5" fill="#14532d"/>
+                    <circle cx="71" cy="36" r="2" fill="#ffffff"/>
+                    <circle cx="74" cy="40" r="1" fill="#ffffff"/>
+                    <!-- Cheek Blush -->
+                    <circle cx="63" cy="46" r="4" fill="#fb7185" opacity="0.5"/>
+                    <!-- Head Crest -->
+                    <path class="pascal-crest" id="pascalCrest" d="M56,28 Q64,22 72,30" stroke="#16a34a" stroke-width="4" stroke-linecap="round" fill="none"/>
+                    <!-- Front Feet resting on the border -->
+                    <ellipse class="pascal-foot" id="pascalFoot1" cx="60" cy="72" rx="6" ry="4" fill="#16a34a"/>
+                    <ellipse class="pascal-foot" id="pascalFoot2" cx="40" cy="72" rx="6" ry="4" fill="#16a34a"/>
+                    <!-- Tiny flower on his head in #a06BAF -->
+                    <circle cx="62" cy="24" r="3.5" fill="#a06BAF"/>
+                    <circle cx="62" cy="24" r="1.2" fill="#fef08a"/>
+                </svg>
+            </div>
+
+            <div class="w-14 h-14 mx-auto rounded-full bg-[#a06BAF]/20 border border-[#a06BAF]/60 flex items-center justify-center text-2xl text-amber-300 mb-3 shadow-inner shadow-[#a06BAF]/30">
+                💌
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-amber-300 tracking-widest font-royal uppercase mb-2">
+                CONFIRMACIÓN DE ASISTENCIA
+            </h3>
+
+            <!-- RSVP Form Container -->
+            <div id="rsvpFormContainer" class="max-w-md mx-auto text-left mt-6 space-y-5">
+                
+                <!-- Guest Name Input -->
+                <div>
+                    <label class="block text-xl sm:text-2xl text-[#f3e8f6] font-cursive mb-1.5">
+                        Nombre de la Familia o Invitado:
+                    </label>
+                    <input type="text" id="guestName" placeholder="Ej. Familia Rodríguez o Sofía" 
+                           class="w-full px-4 py-2.5 rounded-xl bg-[#230b2c]/90 border border-[#a06BAF]/50 text-[#f3e8f6] placeholder-[#c9a1d6]/60 focus:outline-none focus:border-[#a06BAF] focus:ring-2 focus:ring-[#a06BAF]/40 transition-all font-storybook text-base shadow-inner">
+                </div>
+
+                <!-- Attendance Selector (Stacked Vertically for Perfect Mobile Display) -->
+                <div>
+                    <label class="block text-xl sm:text-2xl text-[#f3e8f6] font-cursive mb-2">
+                        ¿Asistirás a la celebración?
+                    </label>
+                    <div class="flex flex-col gap-3 w-full">
+                        <label class="flex items-center gap-3 p-3 rounded-xl bg-[#230b2c]/90 border border-[#a06BAF]/50 hover:border-[#a06BAF] cursor-pointer transition-all shadow-sm">
+                            <input type="radio" name="attendance" value="Si" checked class="w-4 h-4 text-[#a06BAF] focus:ring-[#a06BAF]">
+                            <span class="text-2xl sm:text-3xl text-amber-200 font-cursive">¡Sí, con alegría! 🎉</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded-xl bg-[#230b2c]/90 border border-[#a06BAF]/50 hover:border-[#a06BAF] cursor-pointer transition-all shadow-sm">
+                            <input type="radio" name="attendance" value="No" class="w-4 h-4 text-[#a06BAF] focus:ring-[#a06BAF]">
+                            <span class="text-2xl sm:text-3xl text-[#c9a1d6] font-cursive">Lo lamento, no podré 😢</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Guest Count Selector -->
+                <div>
+                    <label class="block text-xl sm:text-2xl text-[#f3e8f6] font-cursive mb-1.5">
+                        Número total de personas que asisten:
+                    </label>
+                    <select id="guestCount" class="w-full px-4 py-2.5 rounded-xl bg-[#230b2c]/90 border border-[#a06BAF]/50 text-[#f3e8f6] focus:outline-none focus:border-[#a06BAF] focus:ring-2 focus:ring-[#a06BAF]/40 transition-all font-cursive text-2xl shadow-inner">
+                        <option value="1" class="bg-[#230b2c] text-white">1 persona</option>
+                        <option value="2" selected class="bg-[#230b2c] text-white">2 personas</option>
+                        <option value="3" class="bg-[#230b2c] text-white">3 personas</option>
+                        <option value="4" class="bg-[#230b2c] text-white">4 personas</option>
+                        <option value="5" class="bg-[#230b2c] text-white">5 personas</option>
+                        <option value="6+" class="bg-[#230b2c] text-white">6 o más personas</option>
+                    </select>
+                </div>
+
+                <!-- Action Button & Deadline Notice with #a06BAF styling -->
+                <div id="rsvpActionArea" class="pt-2">
+                    <p class="text-xl sm:text-2xl text-[#f3e8f6] font-cursive text-center mb-4">
+                        Por favor confírmanos antes del 26 de Septiembre para preparar todas las sorpresas del reino.
+                    </p>
+                    
+                    <button onclick="handleRSVP()" id="confirmRsvpBtn" 
+                            class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-3xl sm:text-4xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 flex items-center justify-center border border-[#c9a1d6]/50">
+                        Confirmar
+                    </button>
+                </div>
+
+                <!-- Success Confirmation Card (Replaces the button after clicking) -->
+                <div id="rsvpSuccessCard" class="hidden p-5 rounded-2xl bg-[#240b2c]/95 border border-[#a06BAF] text-center space-y-2 mt-4 shadow-xl shadow-[#a06BAF]/25">
+                    <div class="text-3xl">✨💜✨</div>
+                    <h4 class="text-2xl sm:text-3xl text-amber-300 font-royal">¡Gracias por tu confirmación!</h4>
+                    <p id="rsvpSuccessDetails" class="text-2xl sm:text-3xl text-[#f3e8f6] font-cursive">
+                        Tu respuesta ha sido recibida con gran alegría en el palacio.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Royal Footer with #a06BAF accents -->
+        <footer class="mt-12 text-center text-[#c9a1d6]/90 text-sm space-y-2">
+            <p class="font-royal text-amber-300/90 tracking-widest text-xs uppercase">👑 Reino de Rapunzel • Ariana Roca 👑</p>
+            <p class="font-cursive text-xl text-[#f3e8f6]">"Nunca dejes de soñar..."</p>
         </footer>
 
     </main>
 
-    <!-- Toast Notification Banner -->
-    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl bg-amber-400 text-purple-950 font-bold text-xs sm:text-sm shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-2">
-        <span id="toastIcon">✨</span> <span id="toastMsg">Mensaje</span>
-    </div>
-
     <script>
-        // Target Date: October 3, 2026 at 10:00 AM CST
-        const partyDate = new Date('2026-10-03T10:00:00-06:00').getTime();
+        // --- 1. Target Countdown Calculation (October 3, 2026, 15:00:00 GMT-6) ---
+        const eventDate = new Date('2026-10-03T15:00:00-06:00').getTime();
 
-        // Countdown Timer
         function updateCountdown() {
-            const now = new Date().getTime();
-            const diff = partyDate - now;
+            const elDays = document.getElementById('days');
+            const elHours = document.getElementById('hours');
+            const elMin = document.getElementById('minutes');
+            const elSec = document.getElementById('seconds');
 
-            if (diff <= 0) {
-                document.getElementById('days').innerText = '00';
-                document.getElementById('hours').innerText = '00';
-                document.getElementById('minutes').innerText = '00';
-                document.getElementById('seconds').innerText = '00';
+            if (!elDays || !elHours || !elMin || !elSec) return;
+
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                elDays.innerText = '00';
+                elHours.innerText = '00';
+                elMin.innerText = '00';
+                elSec.innerText = '00';
                 return;
             }
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            elDays.innerText = days < 10 ? '0' + days : days;
+            elHours.innerText = hours < 10 ? '0' + hours : hours;
+            elMin.innerText = minutes < 10 ? '0' + minutes : minutes;
+            elSec.innerText = seconds < 10 ? '0' + seconds : seconds;
         }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
 
-        // Copy Gate Code
-        function copyGaritaCode() {
-            const code = "642";
-            const textarea = document.createElement("textarea");
-            textarea.value = code;
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                document.getElementById('copyText').innerText = "¡Copiado!";
-                document.getElementById('copyIcon').innerText = "✓";
-                showToast("✓ Código 642 copiado al portapapeles");
-                setTimeout(() => {
-                    document.getElementById('copyText').innerText = "Copiar";
-                    document.getElementById('copyIcon').innerText = "📋";
-                }, 2500);
-            } catch (err) {
-                showToast("Código de garita: 642");
+        // --- 2. Floating Lantern Canvas Engine (Restored & Enhanced) ---
+        function initLanternCanvas() {
+            const canvas = document.getElementById('lanternCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            // Safe rounded rectangle drawing helper (100% cross-browser compatibility)
+            function drawRoundRect(ctx, x, y, w, h, r) {
+                if (w < 2 * r) r = w / 2;
+                if (h < 2 * r) r = h / 2;
+                ctx.beginPath();
+                ctx.moveTo(x + r, y);
+                ctx.arcTo(x + w, y, x + w, y + h, r);
+                ctx.arcTo(x + w, y + h, x, y + h, r);
+                ctx.arcTo(x, y + h, x, y, r);
+                ctx.arcTo(x, y, x + w, y, r);
+                ctx.closePath();
             }
-            document.body.removeChild(textarea);
-        }
 
-        // Add to Google Calendar
-        function addToGoogleCalendar() {
-            const title = encodeURIComponent("👑 Cumpleaños #5 de Ariana Roca (Rapunzel)");
-            const details = encodeURIComponent("Celebración real de los 5 añitos de Ariana Roca. Código de acceso en garita: 642. Casa Fam. Roca.");
-            const location = encodeURIComponent("4av 9-20 Residencial El Álamo, Casa 7, Balcones de San Cristóbal, Zona 8 de Mixco");
-            const start = "20261003T160000Z";
-            const end = "20261003T210000Z";
-            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
-            window.open(url, '_blank');
-        }
+            const lanterns = [];
+            const lanternCount = Math.min(38, Math.max(20, Math.floor(window.innerWidth / 30)));
 
-        // Toast Helper
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toastMsg');
-            toastMsg.innerText = msg;
-            toast.classList.remove('opacity-0', 'pointer-events-none');
-            toast.classList.add('opacity-100');
-            setTimeout(() => {
-                toast.classList.remove('opacity-100');
-                toast.classList.add('opacity-0', 'pointer-events-none');
-            }, 3000);
-        }
-
-        // Celebrate with Royal Stardust Confetti
-        function celebrateRoyalMagic() {
-            confetti({
-                particleCount: 50,
-                spread: 70,
-                origin: { y: 0.35 },
-                colors: ['#f6c344', '#ffd54f', '#ec4899', '#c084fc', '#ffffff']
-            });
-            showToast("✨ ¡La magia del Reino de Rapunzel ilumina el camino para celebrar a Ariana!");
-        }
-
-        // Launch Wish Lantern & Open Google Form
-        function launchWishLantern() {
-            createRisingLantern(window.innerWidth / 2, window.innerHeight - 80);
-            confetti({
-                particleCount: 60,
-                spread: 80,
-                origin: { y: 0.7 },
-                colors: ['#fde047', '#f59e0b', '#f472b6', '#a855f7']
-            });
-            showToast("🏮 ¡Elevando tu linterna a los cielos de Rapunzel...!");
-            
-            // Google Form for Wishes
-            const formUrl = "https://docs.google.com/forms/d/1qLGasEjqHiOTE43q3KzBM5rDrEftKAREXj3GZ2t3TsY/viewform";
-            setTimeout(() => {
-                window.open(formUrl, '_blank');
-            }, 500);
-        }
-
-        // RSVP Submission to Google Apps Script via POST Fetch (No redirects)
-        async function handleRSVP(event) {
-            event.preventDefault();
-            const name = document.getElementById('guestName').value.trim();
-            const status = document.getElementById('attendanceStatus').value;
-            const count = document.getElementById('guestCount').value;
-
-            if (!name) return;
-
-            // 1. Immediately remove the confirmation button and the deadline text
-            const btnContainer = document.getElementById('rsvpButtonContainer');
-            if (btnContainer) btnContainer.remove();
-
-            const headerBlock = document.getElementById('rsvpHeaderBlock');
-            if (headerBlock) headerBlock.classList.add('hidden');
-
-            // 2. Lock input fields so details cannot be modified accidentally
-            document.getElementById('guestName').disabled = true;
-            document.getElementById('attendanceStatus').disabled = true;
-            document.getElementById('guestCount').disabled = true;
-
-            // 3. Display the Thank-You card in the same page
-            const successCard = document.getElementById('rsvpSuccessCard');
-            const successDetails = document.getElementById('rsvpSuccessDetails');
-            if (successDetails) {
-                if (status === 'si') {
-                    successDetails.innerHTML = `Estimada familia <b>${name}</b>, ¡será un honor tenerles con nosotros celebrando con <b>${count}</b> persona(s)! ✨`;
-                } else {
-                    successDetails.innerHTML = `Estimada familia <b>${name}</b>, lamentamos que no puedan asistir, ¡agradecemos de corazón sus bendiciones para Ariana! 💜`;
-                }
-            }
-            if (successCard) successCard.classList.remove('hidden');
-
-            // 4. Confetti burst
-            confetti({
-                particleCount: 70,
-                spread: 80,
-                origin: { y: 0.6 },
-                colors: ['#f6c344', '#ec4899', '#ab47bc', '#ffffff']
-            });
-
-            showToast("✓ ¡Confirmación registrada con éxito!");
-
-            // 5. Send data via POST fetch to Google Apps Script in background
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbxyp8Wx80Iks7vK6lDcL87e1GAyrs_7nQ-ZksbNtDGQNfvS3gQ-8oBqfUM4LMCzrJq4/exec';
-            const datos = {
-                nombre: name,
-                asistencia: status === 'si' ? 'Sí' : 'No',
-                personas: count,
-                fecha: new Date().toISOString()
-            };
-
-            try {
-                await fetch(scriptUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    },
-                    body: JSON.stringify(datos)
+            for (let i = 0; i < lanternCount; i++) {
+                lanterns.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: 9 + Math.random() * 15,
+                    speedY: 0.28 + Math.random() * 0.52,
+                    swaySpeed: 0.012 + Math.random() * 0.02,
+                    swayOffset: Math.random() * Math.PI * 2,
+                    swayAmp: 0.4 + Math.random() * 0.7,
+                    opacity: 0.4 + Math.random() * 0.5,
+                    flickerSpeed: 0.03 + Math.random() * 0.04,
+                    flickerOffset: Math.random() * Math.PI * 2
                 });
-            } catch (err) {
-                console.log("Envío en segundo plano:", err);
-            }
-        }
-
-        // Ambient Floating Lanterns Background Engine
-        const canvas = document.getElementById('lanternCanvas');
-        const ctx = canvas.getContext('2d');
-        let lanterns = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Lantern {
-            constructor(x, y, isSpecial = false) {
-                this.x = x || Math.random() * canvas.width;
-                this.y = y || canvas.height + Math.random() * 100;
-                this.size = isSpecial ? 26 : Math.random() * 14 + 10;
-                this.speedY = isSpecial ? Math.random() * 1.8 + 1.2 : Math.random() * 0.45 + 0.25;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.angle = Math.random() * Math.PI * 2;
-                this.angleSpeed = Math.random() * 0.02 - 0.01;
-                this.opacity = isSpecial ? 1 : Math.random() * 0.6 + 0.35;
             }
 
-            update() {
-                this.y -= this.speedY;
-                this.x += Math.sin(this.angle) * 0.5 + this.speedX;
-                this.angle += this.angleSpeed;
-
-                if (this.y < -50) {
-                    this.y = canvas.height + 30;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-
-            draw() {
+            function drawLantern(l) {
                 ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(Math.sin(this.angle) * 0.08);
-                ctx.globalAlpha = this.opacity;
+                
+                // Pulsing gentle candle flicker
+                const flicker = Math.sin(l.flickerOffset) * 0.12;
+                const alpha = Math.min(1, Math.max(0.15, l.opacity + flicker));
+                ctx.globalAlpha = alpha;
 
-                // Lantern Glow
-                const gradGlow = ctx.createRadialGradient(0, 0, 1, 0, 0, this.size * 2.2);
-                gradGlow.addColorStop(0, 'rgba(254, 240, 138, 0.95)');
-                gradGlow.addColorStop(0.3, 'rgba(245, 158, 11, 0.45)');
-                gradGlow.addColorStop(1, 'rgba(245, 158, 11, 0)');
-                ctx.fillStyle = gradGlow;
+                // 1. Warm Golden Halo Glow
+                const glow = ctx.createRadialGradient(l.x, l.y, l.size * 0.2, l.x, l.y, l.size * 2.4);
+                glow.addColorStop(0, 'rgba(255, 247, 180, 0.85)');
+                glow.addColorStop(0.3, 'rgba(251, 191, 36, 0.45)');
+                glow.addColorStop(0.7, 'rgba(245, 158, 11, 0.18)');
+                glow.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                ctx.fillStyle = glow;
                 ctx.beginPath();
-                ctx.arc(0, 0, this.size * 2.2, 0, Math.PI * 2);
+                ctx.arc(l.x, l.y, l.size * 2.4, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Lantern Body
-                const gradBody = ctx.createLinearGradient(-this.size / 2, -this.size * 0.7, this.size / 2, this.size * 0.7);
-                gradBody.addColorStop(0, '#fef08a');
-                gradBody.addColorStop(0.5, '#f59e0b');
-                gradBody.addColorStop(1, '#b45309');
+                // 2. Paper Lantern Cylindrical Body
+                const w = l.size * 0.9;
+                const h = l.size * 1.25;
+                const x = l.x - w / 2;
+                const y = l.y - h / 2;
 
-                ctx.fillStyle = gradBody;
-                ctx.beginPath();
-                ctx.roundRect(-this.size / 2, -this.size * 0.7, this.size, this.size * 1.4, 5);
-                ctx.fill();
+                const bodyGrad = ctx.createLinearGradient(x, y, x + w, y + h);
+                bodyGrad.addColorStop(0, '#fffbeb');
+                bodyGrad.addColorStop(0.25, '#fef08a');
+                bodyGrad.addColorStop(0.65, '#fbbf24');
+                bodyGrad.addColorStop(1, '#f59e0b');
 
-                // Sun Logo Silhouette on Lantern
-                ctx.fillStyle = 'rgba(120, 53, 15, 0.45)';
-                ctx.beginPath();
-                ctx.arc(0, 0, this.size * 0.22, 0, Math.PI * 2);
+                ctx.fillStyle = bodyGrad;
+                ctx.strokeStyle = '#d97706';
+                ctx.lineWidth = 1;
+                drawRoundRect(ctx, x, y, w, h, 3);
                 ctx.fill();
+                ctx.stroke();
+
+                // 3. Lantern Top and Bottom Wooden Rims
+                ctx.fillStyle = '#b45309';
+                ctx.fillRect(x - 1, y, w + 2, 2);
+                ctx.fillRect(x - 1, y + h - 2, w + 2, 2);
+
+                // 4. Glowing Sun Emblem inside lantern (for medium and large lanterns)
+                if (l.size > 11) {
+                    ctx.fillStyle = '#d97706';
+                    ctx.beginPath();
+                    ctx.arc(l.x, l.y, l.size * 0.22, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#fffbeb';
+                    ctx.beginPath();
+                    ctx.arc(l.x, l.y, l.size * 0.12, 0, Math.PI * 2);
+                    ctx.fill();
+                }
 
                 ctx.restore();
             }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < lanterns.length; i++) {
+                    const l = lanterns[i];
+                    l.y -= l.speedY;
+                    l.swayOffset += l.swaySpeed;
+                    l.flickerOffset += l.flickerSpeed;
+                    l.x += Math.sin(l.swayOffset) * l.swayAmp;
+
+                    // Re-enter from the bottom once they float off the top
+                    if (l.y < -40) {
+                        l.y = height + 30;
+                        l.x = Math.random() * width;
+                    }
+                    drawLantern(l);
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
         }
 
-        // Initialize 24 subtle background lanterns
-        for (let i = 0; i < 24; i++) {
-            lanterns.push(new Lantern(Math.random() * window.innerWidth, Math.random() * window.innerHeight));
+        // --- 3. Interactive Magic: Rapunzel & Pascal ---
+        const pascalPalettes = [
+            { stop1: '#4ade80', stop2: '#22c55e', stop3: '#15803d', dark: '#16a34a', shadow: '#14532d', confetti: '#22c55e' },
+            { stop1: '#d8b4fe', stop2: '#a06BAF', stop3: '#6b21a8', dark: '#7e22ce', shadow: '#4c1d95', confetti: '#a06BAF' },
+            { stop1: '#fef08a', stop2: '#facc15', stop3: '#ca8a04', dark: '#d97706', shadow: '#854d0e', confetti: '#facc15' },
+            { stop1: '#fbcfe8', stop2: '#f472b6', stop3: '#db2777', dark: '#be185d', shadow: '#831843', confetti: '#f472b6' },
+            { stop1: '#bae6fd', stop2: '#38bdf8', stop3: '#0284c7', dark: '#0369a1', shadow: '#075985', confetti: '#38bdf8' },
+            { stop1: '#fed7aa', stop2: '#fb923c', stop3: '#ea580c', dark: '#c2410c', shadow: '#7c2d12', confetti: '#fb923c' }
+        ];
+        let currentPaletteIdx = 0;
+
+        function changePascalColor(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            currentPaletteIdx = (currentPaletteIdx + 1) % pascalPalettes.length;
+            const pal = pascalPalettes[currentPaletteIdx];
+
+            // Trigger bounce animation on the tapped chameleon
+            const targetEl = event && event.currentTarget ? event.currentTarget : document.getElementById('pascalWrapper');
+            if (targetEl) {
+                targetEl.classList.remove('chameleon-pop');
+                void targetEl.offsetWidth;
+                targetEl.classList.add('chameleon-pop');
+            }
+
+            // Update shared gradient skin tones (applies instantly to both chameleons)
+            const s1 = document.getElementById('pascalStop1');
+            const s2 = document.getElementById('pascalStop2');
+            const s3 = document.getElementById('pascalStop3');
+            if (s1) s1.setAttribute('stop-color', pal.stop1);
+            if (s2) s2.setAttribute('stop-color', pal.stop2);
+            if (s3) s3.setAttribute('stop-color', pal.stop3);
+
+            // Update strokes, feet, smiles and crests for all chameleons
+            document.querySelectorAll('.pascal-tail').forEach(el => el.setAttribute('stroke', pal.dark));
+            document.querySelectorAll('.pascal-crest').forEach(el => el.setAttribute('stroke', pal.dark));
+            document.querySelectorAll('.pascal-smile').forEach(el => el.setAttribute('stroke', pal.shadow));
+            document.querySelectorAll('.pascal-foot').forEach(el => el.setAttribute('fill', pal.dark));
+
+            // Sparkle confetti from tapped chameleon's location
+            if (typeof confetti === 'function') {
+                const rect = targetEl ? targetEl.getBoundingClientRect() : null;
+                const originX = rect ? (rect.left + rect.width / 2) / window.innerWidth : 0.5;
+                const originY = rect ? (rect.top + rect.height / 2) / window.innerHeight : 0.5;
+
+                confetti({
+                    particleCount: 26,
+                    spread: 60,
+                    origin: { x: originX, y: originY },
+                    colors: [pal.confetti, '#fef08a', '#ffffff', '#a06BAF'],
+                    scalar: 0.85
+                });
+            }
         }
 
-        function createRisingLantern(x, y) {
-            lanterns.push(new Lantern(x, y, true));
+        // --- Interactive Corona Sun Celebration Function ---
+        function celebrateCoronaSun(event) {
+            if (event) event.preventDefault();
+            
+            const sunSvg = document.getElementById('coronaSunSvg');
+            if (sunSvg) {
+                sunSvg.classList.remove('corona-sun-burst');
+                // Force reflow for repeating animation on consecutive taps
+                void sunSvg.offsetWidth;
+                sunSvg.classList.add('corona-sun-burst');
+            }
+
+            if (typeof confetti === 'function') {
+                // Royal Golden and Orchid Tangled burst
+                confetti({
+                    particleCount: 65,
+                    spread: 85,
+                    origin: { y: 0.32 },
+                    colors: ['#fbbf24', '#fde047', '#f59e0b', '#a06BAF', '#ffffff', '#c9a1d6']
+                });
+
+                // Sparkle side bursts
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 30,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0.3, y: 0.32 },
+                        colors: ['#fbbf24', '#ffffff', '#eab308']
+                    });
+                    confetti({
+                        particleCount: 30,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 0.7, y: 0.32 },
+                        colors: ['#a06BAF', '#fde047', '#c084fc']
+                    });
+                }, 150);
+            }
         }
 
-        function animateLanterns() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            lanterns.forEach(lantern => {
-                lantern.update();
-                lantern.draw();
-            });
-            requestAnimationFrame(animateLanterns);
+        // --- Interactive Mini Corona Sun on Cards ---
+        function celebrateMiniSun(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            const targetEl = event && event.currentTarget ? event.currentTarget : document.getElementById('miniSunWrapper');
+            const svgEl = targetEl ? targetEl.querySelector('svg') : document.getElementById('miniCoronaSunSvg');
+            if (svgEl) {
+                svgEl.classList.remove('corona-sun-burst');
+                void svgEl.offsetWidth;
+                svgEl.classList.add('corona-sun-burst');
+            }
+
+            if (typeof confetti === 'function') {
+                const rect = targetEl ? targetEl.getBoundingClientRect() : null;
+                const originX = rect ? (rect.left + rect.width / 2) / window.innerWidth : 0.2;
+                const originY = rect ? (rect.top + rect.height / 2) / window.innerHeight : 0.5;
+
+                confetti({
+                    particleCount: 45,
+                    spread: 75,
+                    origin: { x: originX, y: originY },
+                    colors: ['#fbbf24', '#fde047', '#f59e0b', '#a06BAF', '#ffffff', '#c9a1d6'],
+                    scalar: 0.9
+                });
+            }
         }
-        window.onload = function() {
-            animateLanterns();
-        };
+
+        function celebrateMagic(event) {
+            celebrateCoronaSun(event);
+        }
+
+        // --- 4. Copy Gate Code Functionality ---
+        function copyGaritaCode() {
+            const code = "642";
+            const btnText = document.getElementById('copyBtnText');
+            
+            // Clipboard copy with fallback
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(code).then(showCopied).catch(fallbackCopy);
+            } else {
+                fallbackCopy();
+            }
+
+            function fallbackCopy() {
+                const tempInput = document.createElement('input');
+                tempInput.value = code;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    showCopied();
+                } catch(e) {}
+                document.body.removeChild(tempInput);
+            }
+
+            function showCopied() {
+                if (btnText) {
+                    btnText.innerText = "¡Copiado!";
+                    setTimeout(() => {
+                        btnText.innerText = "Copiar Código";
+                    }, 2500);
+                }
+            }
+        }
+
+        // --- 5. RSVP Submission Handling ---
+        function handleRSVP() {
+            const guestNameInput = document.getElementById('guestName');
+            const guestName = guestNameInput ? guestNameInput.value.trim() : "";
+            const attendanceEl = document.querySelector('input[name="attendance"]:checked');
+            const attendance = attendanceEl ? attendanceEl.value : "Si";
+            const guestCountEl = document.getElementById('guestCount');
+            const guestCount = guestCountEl ? guestCountEl.value : "2";
+
+            if (!guestName) {
+                guestNameInput.focus();
+                guestNameInput.classList.add('ring-2', 'ring-amber-400');
+                setTimeout(() => guestNameInput.classList.remove('ring-2', 'ring-amber-400'), 2000);
+                return;
+            }
+
+            // Immediately hide action area (button and deadline)
+            const actionArea = document.getElementById('rsvpActionArea');
+            const successCard = document.getElementById('rsvpSuccessCard');
+            const detailsText = document.getElementById('rsvpSuccessDetails');
+
+            if (actionArea) actionArea.classList.add('hidden');
+            if (detailsText) {
+                detailsText.innerHTML = `¡Princesa Ariana te espera con mucha ilusión, <span class="text-amber-300 font-bold">${guestName}</span>!`;
+            }
+            if (successCard) successCard.classList.remove('hidden');
+
+            // Trigger Royal Confetti
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 90,
+                    origin: { y: 0.8 },
+                    colors: ['#fbbf24', '#c084fc', '#f472b6', '#34d399']
+                });
+            }
+
+            // Background POST to Google Apps Script
+            const postData = {
+                nombre: guestName,
+                asistencia: attendance,
+                personas: guestCount,
+                fechaEnvio: new Date().toISOString()
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbyjR1P-F-JjLzR7-e4B1_8B7W8jP7Q/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(postData)
+            }).catch(() => {});
+        }
+
+        // --- 6. Initialization on DOM Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            initLanternCanvas();
+        });
     </script>
 </body>
 </html>
