@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Real 5 Añitos - Ariana Roca</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rapunzel: {
+                            purple: '#4d1c75',
+                            darkPurple: '#2a0845',
+                            deepNight: '#130224',
+                            gold: '#f6c344',
+                            amber: '#e59e1b',
+                            pink: '#e879f9',
+                            rose: '#f472b6',
+                            softLavender: '#f3e8ff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                        cursive: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Cinzel Decorative"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Great+Vibes&family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            background-color: #130224;
+            color: #ffffff;
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+            user-select: none;
+        }
+        .glow-text-gold {
+            text-shadow: 0 0 15px rgba(246, 195, 68, 0.7), 0 0 30px rgba(229, 158, 27, 0.45);
+        }
+        .glow-text-purple {
+            text-shadow: 0 2px 10px rgba(77, 28, 117, 0.35);
+        }
+        .glow-box-gold {
+            box-shadow: 0 0 25px rgba(246, 195, 68, 0.35), inset 0 0 15px rgba(246, 195, 68, 0.2);
+        }
+        @keyframes floatLantern {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1.5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .lantern-float {
+            animation: floatLantern 4s ease-in-out infinite;
+        }
+        @keyframes slowSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .sun-spin {
+            animation: slowSpin 60s linear infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.05); }
+        }
+        .magic-pulse {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        @keyframes sparkleTwinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .sparkle-dot {
+            animation: sparkleTwinkle 2.5s ease-in-out infinite;
+        }
+        #lanternCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- Floating Interactive Lantern Canvas -->
+    <canvas id="lanternCanvas"></canvas>
+
+    <!-- Decorative Festive Bunting (Banderines del Reino) -->
+    <div class="fixed top-0 left-0 w-full z-20 pointer-events-none flex justify-around opacity-90">
+        <svg viewBox="0 0 1000 60" class="w-full h-12 sm:h-16" preserveAspectRatio="none">
+            <path d="M 0 0 Q 125 40 250 10 Q 375 40 500 10 Q 625 40 750 10 Q 875 40 1000 0" stroke="#f6c344" stroke-width="2" fill="none"/>
+            <!-- Triangle Pennants -->
+            <polygon points="50,15 90,15 70,52" fill="#7b1fa2" opacity="0.85"/>
+            <polygon points="175,22 215,22 195,58" fill="#f6c344" opacity="0.9"/>
+            <polygon points="300,22 340,22 320,58" fill="#ec4899" opacity="0.85"/>
+            <polygon points="425,18 465,18 445,55" fill="#ab47bc" opacity="0.85"/>
+            <polygon points="550,18 590,18 570,55" fill="#f6c344" opacity="0.9"/>
+            <polygon points="675,22 715,22 695,58" fill="#ec4899" opacity="0.85"/>
+            <polygon points="800,22 840,22 820,58" fill="#7b1fa2" opacity="0.85"/>
+            <polygon points="915,15 955,15 935,52" fill="#f6c344" opacity="0.9"/>
+        </svg>
+    </div>
+
+    <!-- Background Golden Waves (Cabello Mágico de Rapunzel) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-35">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-amber-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-20 left-1/4 w-[35rem] h-[35rem] bg-purple-700/25 rounded-full blur-3xl"></div>
+        
+        <!-- Subtle Twinkling Stars -->
+        <div class="sparkle-dot absolute top-24 left-[10%] text-amber-300 text-xs">✦</div>
+        <div class="sparkle-dot absolute top-40 right-[15%] text-yellow-200 text-sm" style="animation-delay: 1s;">★</div>
+        <div class="sparkle-dot absolute top-96 left-[20%] text-pink-300 text-xs" style="animation-delay: 1.5s;">✦</div>
+        <div class="sparkle-dot absolute bottom-60 right-[25%] text-amber-200 text-sm" style="animation-delay: 0.8s;">★</div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 max-w-xl mx-auto px-4 py-8 sm:py-12 flex flex-col items-center">
+
+        <!-- Header Section -->
+        <header class="w-full text-center flex flex-col items-center mb-6">
+            <!-- Kingdom of Rapunzel Pill Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rapunzel-purple/80 border border-rapunzel-gold/60 shadow-lg mb-4 text-amber-200 text-xs sm:text-sm font-semibold tracking-wider uppercase">
+                <span>✨</span> Reino de Rapunzel &bull; Celebración Real <span>✨</span>
+            </div>
+
+            <!-- Royal Corona Sunburst Medallion (Clean, Elegant & Interactive) -->
+            <div class="relative my-3 flex items-center justify-center cursor-pointer group" onclick="celebrateRoyalMagic()" title="¡Toca para celebrar la magia!">
+                
+                <!-- Ambient Magic Backlight -->
+                <div class="absolute -inset-4 bg-gradient-to-r from-amber-400/30 via-fuchsia-500/20 to-yellow-300/30 rounded-full blur-2xl magic-pulse"></div>
+
+                <!-- Main Outer Medallion -->
+                <div class="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full border-4 border-amber-300/80 shadow-[0_0_40px_rgba(246,195,68,0.45)] bg-gradient-to-b from-[#3b0d5c] via-[#240638] to-[#120324] flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-105">
+                    
+                    <!-- Spinning Sun Rays Layer -->
+                    <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full sun-spin opacity-80 pointer-events-none">
+                        <defs>
+                            <linearGradient id="sunRayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fff59d"/>
+                                <stop offset="50%" stop-color="#f6c344"/>
+                                <stop offset="100%" stop-color="#e59e1b"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- 16 Sun Rays -->
+                        <g fill="url(#sunRayGrad)" opacity="0.85">
+                            <polygon points="100,5 96,35 104,35"/>
+                            <polygon points="100,195 96,165 104,165"/>
+                            <polygon points="5,100 35,96 35,104"/>
+                            <polygon points="195,100 165,96 165,104"/>
+                            <polygon points="33,33 58,51 52,57"/>
+                            <polygon points="167,167 142,149 148,143"/>
+                            <polygon points="167,33 149,58 143,52"/>
+                            <polygon points="33,167 51,142 57,148"/>
+                            <polygon points="65,12 73,38 82,35"/>
+                            <polygon points="135,188 127,162 118,165"/>
+                            <polygon points="12,65 38,73 35,82"/>
+                            <polygon points="188,135 162,127 165,118"/>
+                            <polygon points="135,12 127,38 118,35"/>
+                            <polygon points="65,188 73,162 82,165"/>
+                            <polygon points="188,65 162,73 165,82"/>
+                            <polygon points="12,135 38,127 35,118"/>
+                        </g>
+                    </svg>
+
+                    <!-- Central Floating Royal Lantern with Golden Warmth -->
+                    <div class="relative z-10 flex flex-col items-center justify-center text-center lantern-float">
+                        <!-- Top Crown Icon -->
+                        <span class="text-xl sm:text-2xl filter drop-shadow">👑</span>
+                        
+                        <!-- Glowing Center Lantern -->
+                        <div class="my-1 w-16 h-20 sm:w-20 sm:h-24 rounded-2xl bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 p-1 shadow-[0_0_25px_#fde047] flex items-center justify-center border border-yellow-100">
+                            <!-- Golden Sun of Rapunzel Symbol on Lantern -->
+                            <div class="w-full h-full rounded-xl bg-gradient-to-b from-yellow-300/40 via-amber-500/50 to-amber-800/80 flex flex-col items-center justify-center">
+                                <span class="text-2xl sm:text-3xl animate-pulse">☀️</span>
+                                <span class="text-[10px] sm:text-xs font-black text-amber-950 uppercase tracking-widest mt-0.5">Luz Real</span>
+                            </div>
+                        </div>
+
+                        <!-- 5 AÑITOS Golden Ribbon -->
+                        <div class="px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-purple-950 font-black text-xs sm:text-sm tracking-wider shadow-md border border-yellow-100">
+                            5 AÑITOS
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Hint Tooltip Badge -->
+                <div class="absolute -bottom-2 px-3 py-0.5 rounded-full bg-rapunzel-purple border border-amber-300 text-[10px] text-amber-200 font-bold shadow tracking-wide">
+                    ✨ Toca el sol real ✨
+                </div>
+            </div>
+
+            <p class="font-cursive text-3xl sm:text-4xl text-rapunzel-gold glow-text-gold tracking-wide mt-3 mb-1">
+                ¡Un nuevo sueño comienza hoy!
+            </p>
+
+            <h1 class="font-serif text-3xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-amber-300 to-yellow-100 glow-text-gold tracking-wide mt-1">
+                ARIANA ROCA
+            </h1>
+
+            <div class="flex items-center gap-3 mt-2">
+                <span class="h-[1px] w-12 bg-gradient-to-r from-transparent to-amber-400"></span>
+                <span class="text-xs sm:text-sm uppercase tracking-[0.3em] text-fuchsia-200 font-semibold">
+                    Cumpleaños Real #5
+                </span>
+                <span class="h-[1px] w-12 bg-gradient-to-l from-transparent to-amber-400"></span>
+            </div>
+        </header>
+
+        <!-- Royal Parchment Card -->
+        <section class="w-full bg-gradient-to-b from-[#2d0b49]/95 via-[#23063b]/95 to-[#19032b]/95 rounded-3xl p-6 sm:p-8 border-2 border-amber-400/50 shadow-2xl backdrop-blur-md mb-8">
+            
+            <p class="text-center text-sm sm:text-base text-purple-100 leading-relaxed mb-6 font-medium">
+                Con la bendición del reino y la magia de las luces flotantes, tenemos el honor de invitarte a celebrar los 
+                <span class="font-bold text-amber-300 text-lg">5 añitos</span> de nuestra adorada princesa 
+                <span class="font-bold text-amber-300">Ariana</span>. ¡Será un día repleto de magia, risas y hermosas sorpresas!
+            </p>
+
+            <!-- Live Countdown Timer -->
+            <div class="w-full bg-rapunzel-deepNight/80 rounded-2xl p-4 border border-amber-400/30 mb-6 text-center">
+                <div class="text-xs uppercase tracking-widest text-amber-300/80 mb-2 font-bold flex items-center justify-center gap-2">
+                    <span>⏳</span> Cuenta Regresiva Real <span>⏳</span>
+                </div>
+                <div class="grid grid-cols-4 gap-2 text-center">
+                    <div class="bg-purple-950/70 rounded-xl p-2 border border-purple-800">
+                        <div id="days" class="text-xl sm:text-3xl font-black text-amber-300 font-serif">--</div>
+                        <div class="text-[10px] sm:text-xs text-purple-200 uppercase font-bold mt-1">Días</div>
+                    </div>
+                    <div class="bg-purple-950/70 rounded-xl p-2 border border-purple-800">
+                        <div id="hours" class="text-xl sm:text-3xl font-black text-amber-300 font-serif">--</div>
+                        <div class="text-[10px] sm:text-xs text-purple-200 uppercase font-bold mt-1">Horas</div>
+                    </div>
+                    <div class="bg-purple-950/70 rounded-xl p-2 border border-purple-800">
+                        <div id="minutes" class="text-xl sm:text-3xl font-black text-amber-300 font-serif">--</div>
+                        <div class="text-[10px] sm:text-xs text-purple-200 uppercase font-bold mt-1">Min</div>
+                    </div>
+                    <div class="bg-purple-950/70 rounded-xl p-2 border border-purple-800">
+                        <div id="seconds" class="text-xl sm:text-3xl font-black text-amber-300 font-serif">--</div>
+                        <div class="text-[10px] sm:text-xs text-purple-200 uppercase font-bold mt-1">Seg</div>
+                    </div>
+                </div>
+
+                <!-- Calendar Reminder Button -->
+                <button onclick="addToGoogleCalendar()" class="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-purple-950 font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all active:scale-95">
+                    <span>📅</span> Agregar al Calendario Real
+                </button>
+            </div>
+
+            <!-- Details Grid -->
+            <div class="space-y-4">
+                
+                <!-- Date & Time Row -->
+                <div class="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-purple-950/50 border border-purple-800/60">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-400/20 flex items-center justify-center text-xl sm:text-2xl text-amber-300 flex-shrink-0 border border-amber-400/40">
+                        ☀️
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-xs uppercase tracking-wider text-amber-300 font-bold">Fecha & Hora</h2>
+                        <p class="text-base sm:text-lg font-bold text-white mt-0.5">Sábado, 03 de Octubre del 2026</p>
+                        <p class="text-sm text-purple-200 font-semibold">10:00 a. m.</p>
+                    </div>
+                </div>
+
+                <!-- Location & Garita Row -->
+                <div class="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-purple-950/50 border border-purple-800/60">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-400/20 flex items-center justify-center text-xl sm:text-2xl text-amber-300 flex-shrink-0 border border-amber-400/40">
+                        🏰
+                    </div>
+                    <div class="flex-1 w-full min-w-0">
+                        <h2 class="text-xs uppercase tracking-wider text-amber-300 font-bold">Lugar de la Celebración</h2>
+                        <p class="text-base sm:text-lg font-bold text-white mt-0.5">Casa Fam. Roca</p>
+                        <p class="text-sm text-purple-200 leading-snug mt-1 break-words">
+                            4av 9-20 Residencial El Álamo, Casa 7, Balcones de San Cristóbal, Zona 8 de Mixco.
+                        </p>
+
+                        <!-- Gate Code Box (Mobile-friendly responsive alignment) -->
+                        <div class="mt-3 p-3 rounded-xl bg-rapunzel-deepNight/90 border border-amber-400/60 w-full flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                            <div class="min-w-0">
+                                <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-purple-300 font-bold block">Acceso en Garita</span>
+                                <span class="text-lg sm:text-xl font-black text-amber-300 font-mono tracking-wider sm:tracking-widest block">CÓDIGO: 642</span>
+                            </div>
+                            <button onclick="copyGaritaCode()" class="w-full sm:w-auto px-3.5 py-2 bg-amber-400 hover:bg-amber-300 text-purple-950 font-bold text-xs rounded-lg shadow active:scale-95 transition-all flex items-center justify-center gap-1.5 flex-shrink-0">
+                                <span id="copyIcon">📋</span> <span id="copyText">Copiar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GPS Navigation Links (Google Maps & Waze) -->
+                <div class="grid grid-cols-2 gap-3 pt-1">
+                    <a href="https://maps.google.com/?cid=7567796335614637130" target="_blank" rel="noopener noreferrer" 
+                       class="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-gradient-to-r from-red-600/90 to-rose-700/90 hover:from-red-500 hover:to-rose-600 text-white font-bold text-xs sm:text-sm shadow-lg border border-red-400/40 active:scale-95 transition-all text-center">
+                        <span>🗺️</span> Google Maps
+                    </a>
+                    <a href="https://waze.com/ul?q=Residencial+El+Alamo+Balcones+de+San+Cristobal+Mixco" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-gradient-to-r from-sky-600/90 to-cyan-700/90 hover:from-sky-500 hover:to-cyan-600 text-white font-bold text-xs sm:text-sm shadow-lg border border-sky-400/40 active:scale-95 transition-all text-center">
+                        <span>🚗</span> Waze
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Dress Code & Gifts Row -->
+            <div class="mt-6 pt-6 border-t border-purple-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- Dress Code -->
+                <div class="p-3.5 rounded-2xl bg-purple-950/40 border border-purple-800/40 text-center">
+                    <span class="text-2xl block mb-1">👗</span>
+                    <h3 class="text-xs uppercase tracking-wider text-amber-300 font-bold">Vestuario</h3>
+                    <p class="text-xs text-purple-200 mt-1 font-medium">
+                        ¡Ropa cómoda para divertirse! Los pequeños pueden venir con su disfraz favorito de princesa o aventurero.
+                    </p>
+                </div>
+
+                <!-- Short, Polite Gift Shower Note -->
+                <div class="p-3.5 rounded-2xl bg-purple-950/40 border border-purple-800/40 text-center">
+                    <span class="text-2xl block mb-1">🎁</span>
+                    <h3 class="text-xs uppercase tracking-wider text-amber-300 font-bold">Lluvia de Regalos</h3>
+                    <p class="text-xs text-purple-200 mt-1 font-medium">
+                        Si deseas consentir a la princesa con un lindo detalle, ¡lo recibiremos con mucho amor! ✨
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Floating Lantern of Wishes (Google Forms Integration) -->
+        <section class="w-full bg-gradient-to-b from-[#310b50] to-[#1e0433] rounded-3xl p-6 border-2 border-amber-400/40 shadow-2xl mb-8 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl pointer-events-none"></div>
+            
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-400/20 border border-amber-300/40 flex items-center justify-center text-3xl mb-3 shadow-inner">
+                🏮
+            </div>
+
+            <h2 class="font-serif text-lg sm:text-xl font-bold text-amber-200">
+                Linterna de los Deseos para Ariana
+            </h2>
+            <p class="text-xs sm:text-sm text-purple-200 mt-1 mb-4 max-w-md mx-auto">
+                Escribe un lindo mensaje o bendición para Ariana en su linterna real para llenar su cielo de luz.
+            </p>
+
+            <button onclick="launchWishLantern()" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-purple-950 font-black text-sm rounded-2xl shadow-[0_0_20px_rgba(246,195,68,0.5)] active:scale-95 transition-all inline-flex items-center justify-center gap-2">
+                <span>✨</span> Elevar mi Linterna de Deseos <span>🏮</span>
+            </button>
+        </section>
+
+        <!-- RSVP Section (Google Apps Script Fetch Integration) -->
+        <section id="rsvpSection" class="w-full bg-gradient-to-b from-[#2d0b49]/95 via-[#23063b]/95 to-[#19032b]/95 rounded-3xl p-6 sm:p-8 border-2 border-amber-400/50 shadow-2xl backdrop-blur-md mb-8 text-center">
+            
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-400/20 border border-amber-300/40 flex items-center justify-center text-3xl mb-3">
+                💌
+            </div>
+
+            <!-- RSVP Header and deadline notice -->
+            <div id="rsvpHeaderBlock">
+                <h2 class="font-serif text-xl sm:text-2xl font-bold text-amber-200">
+                    Confirmación de Asistencia
+                </h2>
+                <p class="text-xs sm:text-sm text-purple-200 mt-1 mb-6 font-medium">
+                    Por favor confírmanos antes del <span class="text-amber-300 font-bold">26 de Septiembre</span> para preparar todas las sorpresas del reino.
+                </p>
+            </div>
+
+            <!-- In-Page Thank You Card (Hidden by default, shown upon tapping confirm) -->
+            <div id="rsvpSuccessCard" class="hidden p-5 rounded-2xl bg-purple-950/80 border-2 border-amber-400/70 text-center shadow-lg my-2">
+                <div class="text-4xl mb-2">👑</div>
+                <h3 class="text-lg sm:text-xl font-serif font-black text-amber-300">¡Gracias por tu confirmación! 💜</h3>
+                <p id="rsvpSuccessDetails" class="text-sm text-purple-100 mt-2 font-medium"></p>
+                <div class="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-200 text-xs font-semibold">
+                    <span>✨</span> Tu respuesta ha sido registrada en el Reino de Rapunzel
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="rsvpForm" onsubmit="handleRSVP(event)" class="space-y-4 max-w-md mx-auto text-left">
+                <div>
+                    <label class="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+                        Nombre de la Familia / Invitado *
+                    </label>
+                    <input type="text" id="guestName" required placeholder="Ej. Familia Rodríguez o tu nombre"
+                           class="w-full px-4 py-3 rounded-xl bg-purple-950/80 border border-purple-700 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/40 text-white placeholder-purple-400 text-sm outline-none transition-all">
+                </div>
+
+                <!-- Responsive Grid: 1 col on mobile, 2 cols on tablets/desktop -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-3">
+                    <div class="w-full">
+                        <label class="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+                            ¿Asistirás? *
+                        </label>
+                        <select id="attendanceStatus" class="w-full px-3.5 py-3 rounded-xl bg-purple-950/90 border border-purple-700 focus:border-amber-400 text-white text-xs sm:text-sm outline-none">
+                            <option value="si" class="bg-[#1f0535] text-white">¡Sí, con alegría! 🎉</option>
+                            <option value="no" class="bg-[#1f0535] text-white">Lo lamento, no podré 😢</option>
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <label class="block text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5">
+                            Personas *
+                        </label>
+                        <select id="guestCount" class="w-full px-3.5 py-3 rounded-xl bg-purple-950/90 border border-purple-700 focus:border-amber-400 text-white text-xs sm:text-sm outline-none">
+                            <option value="1" class="bg-[#1f0535] text-white">1 Persona</option>
+                            <option value="2" selected class="bg-[#1f0535] text-white">2 Personas</option>
+                            <option value="3" class="bg-[#1f0535] text-white">3 Personas</option>
+                            <option value="4" class="bg-[#1f0535] text-white">4 Personas</option>
+                            <option value="5" class="bg-[#1f0535] text-white">5 Personas</option>
+                            <option value="6" class="bg-[#1f0535] text-white">6+ Personas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit Button Container (Removed and replaced upon confirm) -->
+                <div id="rsvpButtonContainer" class="pt-2">
+                    <button type="submit" id="btnConfirmar"
+                            class="w-full py-3.5 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-purple-950 font-black text-sm sm:text-base rounded-2xl shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <span>👑</span> CONFIRMAR
+                    </button>
+                </div>
+            </form>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="w-full text-center py-6 text-purple-300/80 text-xs">
+            <p class="font-cursive text-2xl text-amber-300/90 mb-1">
+                ¡Te esperamos para hacer este sueño realidad!
+            </p>
+            <p class="font-semibold text-amber-200/90">
+                Familia Roca &bull; Reino de Rapunzel 2026
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Toast Notification Banner -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 px-5 py-3 rounded-2xl bg-amber-400 text-purple-950 font-bold text-xs sm:text-sm shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-2">
+        <span id="toastIcon">✨</span> <span id="toastMsg">Mensaje</span>
+    </div>
+
+    <script>
+        // Target Date: October 3, 2026 at 10:00 AM CST
+        const partyDate = new Date('2026-10-03T10:00:00-06:00').getTime();
+
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = partyDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Copy Gate Code
+        function copyGaritaCode() {
+            const code = "642";
+            const textarea = document.createElement("textarea");
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                document.getElementById('copyText').innerText = "¡Copiado!";
+                document.getElementById('copyIcon').innerText = "✓";
+                showToast("✓ Código 642 copiado al portapapeles");
+                setTimeout(() => {
+                    document.getElementById('copyText').innerText = "Copiar";
+                    document.getElementById('copyIcon').innerText = "📋";
+                }, 2500);
+            } catch (err) {
+                showToast("Código de garita: 642");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Add to Google Calendar
+        function addToGoogleCalendar() {
+            const title = encodeURIComponent("👑 Cumpleaños #5 de Ariana Roca (Rapunzel)");
+            const details = encodeURIComponent("Celebración real de los 5 añitos de Ariana Roca. Código de acceso en garita: 642. Casa Fam. Roca.");
+            const location = encodeURIComponent("4av 9-20 Residencial El Álamo, Casa 7, Balcones de San Cristóbal, Zona 8 de Mixco");
+            const start = "20261003T160000Z";
+            const end = "20261003T210000Z";
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
+            window.open(url, '_blank');
+        }
+
+        // Toast Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Celebrate with Royal Stardust Confetti
+        function celebrateRoyalMagic() {
+            confetti({
+                particleCount: 50,
+                spread: 70,
+                origin: { y: 0.35 },
+                colors: ['#f6c344', '#ffd54f', '#ec4899', '#c084fc', '#ffffff']
+            });
+            showToast("✨ ¡La magia del Reino de Rapunzel ilumina el camino para celebrar a Ariana!");
+        }
+
+        // Launch Wish Lantern & Open Google Form
+        function launchWishLantern() {
+            createRisingLantern(window.innerWidth / 2, window.innerHeight - 80);
+            confetti({
+                particleCount: 60,
+                spread: 80,
+                origin: { y: 0.7 },
+                colors: ['#fde047', '#f59e0b', '#f472b6', '#a855f7']
+            });
+            showToast("🏮 ¡Elevando tu linterna a los cielos de Rapunzel...!");
+            
+            // Google Form for Wishes
+            const formUrl = "https://docs.google.com/forms/d/1qLGasEjqHiOTE43q3KzBM5rDrEftKAREXj3GZ2t3TsY/viewform";
+            setTimeout(() => {
+                window.open(formUrl, '_blank');
+            }, 500);
+        }
+
+        // RSVP Submission to Google Apps Script via POST Fetch (No redirects)
+        async function handleRSVP(event) {
+            event.preventDefault();
+            const name = document.getElementById('guestName').value.trim();
+            const status = document.getElementById('attendanceStatus').value;
+            const count = document.getElementById('guestCount').value;
+
+            if (!name) return;
+
+            // 1. Immediately remove the confirmation button and the deadline text
+            const btnContainer = document.getElementById('rsvpButtonContainer');
+            if (btnContainer) btnContainer.remove();
+
+            const headerBlock = document.getElementById('rsvpHeaderBlock');
+            if (headerBlock) headerBlock.classList.add('hidden');
+
+            // 2. Lock input fields so details cannot be modified accidentally
+            document.getElementById('guestName').disabled = true;
+            document.getElementById('attendanceStatus').disabled = true;
+            document.getElementById('guestCount').disabled = true;
+
+            // 3. Display the Thank-You card in the same page
+            const successCard = document.getElementById('rsvpSuccessCard');
+            const successDetails = document.getElementById('rsvpSuccessDetails');
+            if (successDetails) {
+                if (status === 'si') {
+                    successDetails.innerHTML = `Estimada familia <b>${name}</b>, ¡será un honor tenerles con nosotros celebrando con <b>${count}</b> persona(s)! ✨`;
+                } else {
+                    successDetails.innerHTML = `Estimada familia <b>${name}</b>, lamentamos que no puedan asistir, ¡agradecemos de corazón sus bendiciones para Ariana! 💜`;
+                }
+            }
+            if (successCard) successCard.classList.remove('hidden');
+
+            // 4. Confetti burst
+            confetti({
+                particleCount: 70,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#f6c344', '#ec4899', '#ab47bc', '#ffffff']
+            });
+
+            showToast("✓ ¡Confirmación registrada con éxito!");
+
+            // 5. Send data via POST fetch to Google Apps Script in background
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbxyp8Wx80Iks7vK6lDcL87e1GAyrs_7nQ-ZksbNtDGQNfvS3gQ-8oBqfUM4LMCzrJq4/exec';
+            const datos = {
+                nombre: name,
+                asistencia: status === 'si' ? 'Sí' : 'No',
+                personas: count,
+                fecha: new Date().toISOString()
+            };
+
+            try {
+                await fetch(scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify(datos)
+                });
+            } catch (err) {
+                console.log("Envío en segundo plano:", err);
+            }
+        }
+
+        // Ambient Floating Lanterns Background Engine
+        const canvas = document.getElementById('lanternCanvas');
+        const ctx = canvas.getContext('2d');
+        let lanterns = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Lantern {
+            constructor(x, y, isSpecial = false) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || canvas.height + Math.random() * 100;
+                this.size = isSpecial ? 26 : Math.random() * 14 + 10;
+                this.speedY = isSpecial ? Math.random() * 1.8 + 1.2 : Math.random() * 0.45 + 0.25;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.angle = Math.random() * Math.PI * 2;
+                this.angleSpeed = Math.random() * 0.02 - 0.01;
+                this.opacity = isSpecial ? 1 : Math.random() * 0.6 + 0.35;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += Math.sin(this.angle) * 0.5 + this.speedX;
+                this.angle += this.angleSpeed;
+
+                if (this.y < -50) {
+                    this.y = canvas.height + 30;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(Math.sin(this.angle) * 0.08);
+                ctx.globalAlpha = this.opacity;
+
+                // Lantern Glow
+                const gradGlow = ctx.createRadialGradient(0, 0, 1, 0, 0, this.size * 2.2);
+                gradGlow.addColorStop(0, 'rgba(254, 240, 138, 0.95)');
+                gradGlow.addColorStop(0.3, 'rgba(245, 158, 11, 0.45)');
+                gradGlow.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                ctx.fillStyle = gradGlow;
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size * 2.2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Lantern Body
+                const gradBody = ctx.createLinearGradient(-this.size / 2, -this.size * 0.7, this.size / 2, this.size * 0.7);
+                gradBody.addColorStop(0, '#fef08a');
+                gradBody.addColorStop(0.5, '#f59e0b');
+                gradBody.addColorStop(1, '#b45309');
+
+                ctx.fillStyle = gradBody;
+                ctx.beginPath();
+                ctx.roundRect(-this.size / 2, -this.size * 0.7, this.size, this.size * 1.4, 5);
+                ctx.fill();
+
+                // Sun Logo Silhouette on Lantern
+                ctx.fillStyle = 'rgba(120, 53, 15, 0.45)';
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size * 0.22, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        // Initialize 24 subtle background lanterns
+        for (let i = 0; i < 24; i++) {
+            lanterns.push(new Lantern(Math.random() * window.innerWidth, Math.random() * window.innerHeight));
+        }
+
+        function createRisingLantern(x, y) {
+            lanterns.push(new Lantern(x, y, true));
+        }
+
+        function animateLanterns() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            lanterns.forEach(lantern => {
+                lantern.update();
+                lantern.draw();
+            });
+            requestAnimationFrame(animateLanterns);
+        }
+        window.onload = function() {
+            animateLanterns();
+        };
+    </script>
+</body>
+</html>
