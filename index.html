@@ -693,7 +693,7 @@
                 <p class="text-2xl sm:text-3xl text-[#f3e8f6] font-cursive max-w-md mx-auto leading-relaxed mb-5">
                     Deja un mensaje de amor y bendición para que ilumine el camino de Ariana en su 5to cumpleaños.
                 </p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScP_dK-Vd_9ePZl3m0oBfZ1kXv7w/viewform" target="_blank" 
+                <a href="https://forms.gle/JiBZnbbJ1NU1fMe99" target="_blank" rel="noopener noreferrer" id="wishLanternMainBtn"
                    class="w-full max-w-sm py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-2xl sm:text-3xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 flex items-center justify-center text-center border border-[#c9a1d6]/50">
                     Elevar mi linterna de deseos
                 </a>
@@ -822,6 +822,66 @@
         </footer>
 
     </main>
+
+    <!-- Modal Mágico de la Linterna de los Deseos (Garantiza acceso sin bloqueos) -->
+    <div id="wishModal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="relative w-full max-w-lg royal-card rounded-3xl p-6 sm:p-8 text-center border-[#a06BAF] shadow-2xl space-y-5 animate-scale-up">
+            <button onclick="closeWishModal()" class="absolute top-4 right-4 text-2xl text-[#c9a1d6] hover:text-white transition-colors">✕</button>
+            
+            <div class="text-4xl animate-lantern">🏮</div>
+            <h3 class="text-2xl sm:text-3xl font-bold text-amber-300 font-royal">
+                Linterna de los Deseos
+            </h3>
+            
+            <!-- Opción 1: Enviar deseo directo (se guarda en Google Sheets de inmediato) -->
+            <div id="wishFormFields" class="text-left space-y-4">
+                <div>
+                    <label class="block text-xl text-[#f3e8f6] font-cursive mb-1">Tu Nombre o Familia:</label>
+                    <input type="text" id="wishGuestName" placeholder="Ej. Tía Lucía o Familia Castillo"
+                           class="w-full px-4 py-2.5 rounded-xl bg-[#230b2c]/90 border border-[#a06BAF]/50 text-[#f3e8f6] placeholder-[#c9a1d6]/60 focus:outline-none focus:border-[#a06BAF] font-storybook text-base shadow-inner">
+                </div>
+                <div>
+                    <label class="block text-xl text-[#f3e8f6] font-cursive mb-1">Tu Mensaje de Bendición:</label>
+                    <textarea id="wishMessage" rows="3" placeholder="Que tu luz brille siempre con alegría y amor..."
+                              class="w-full px-4 py-2.5 rounded-xl bg-[#230b2c]/90 border border-[#a06BAF]/50 text-[#f3e8f6] placeholder-[#c9a1d6]/60 focus:outline-none focus:border-[#a06BAF] font-storybook text-base shadow-inner"></textarea>
+                </div>
+
+                <button onclick="submitDirectWish()" id="submitWishBtn"
+                        class="w-full py-3 px-6 rounded-2xl bg-gradient-to-r from-[#a06BAF] via-[#bd83cb] to-[#8d549b] hover:from-[#925a9f] hover:to-[#a06BAF] text-white font-cursive text-2xl sm:text-3xl shadow-xl shadow-[#a06BAF]/35 transition-all duration-300 active:scale-95 flex items-center justify-center border border-[#c9a1d6]/50">
+                    ✨ Elevar mi Deseo al Cielo ✨
+                </button>
+            </div>
+
+            <!-- Estado de éxito al elevar linterna -->
+            <div id="wishSuccessNotice" class="hidden py-4 text-center space-y-2">
+                <div class="text-3xl">✨🏮🌟</div>
+                <h4 class="text-2xl text-amber-300 font-royal">¡Tu linterna vuela alto!</h4>
+                <p class="text-xl sm:text-2xl text-[#f3e8f6] font-cursive">
+                    Tu mensaje ha iluminado el cielo y ha sido guardado con amor para Ariana.
+                </p>
+            </div>
+
+            <!-- Divisor y enlace a Google Forms -->
+            <div class="pt-2 border-t border-[#a06BAF]/40 flex flex-col items-center gap-2">
+                <span class="text-xs sm:text-sm text-[#c9a1d6] font-storybook">¿Prefieres abrirlo en Google Forms directamente?</span>
+                <div class="flex items-center gap-2 w-full justify-center">
+                    <a href="https://forms.gle/JiBZnbbJ1NU1fMe99" target="_blank" rel="noopener noreferrer" 
+                       class="px-4 py-2 rounded-xl bg-[#3b1847] border border-[#a06BAF]/70 text-amber-200 text-sm font-storybook hover:bg-[#502161] transition-all flex items-center gap-1.5">
+                        <span>🔗</span>
+                        <span>Abrir Formulario</span>
+                    </a>
+                    <button onclick="copyGoogleFormLink()" 
+                            class="px-4 py-2 rounded-xl bg-[#3b1847] border border-[#a06BAF]/70 text-[#c9a1d6] text-sm font-storybook hover:bg-[#502161] transition-all flex items-center gap-1.5">
+                        <span>📋</span>
+                        <span id="copyFormLinkText">Copiar Link</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Iframe for Guaranteed Google Apps Script Form Delivery -->
+    <iframe name="gasResponseFrame" id="gasResponseFrame" style="display:none;" aria-hidden="true"></iframe>
 
     <script>
         // --- 1. Target Countdown Calculation (October 3, 2026, 15:00:00 GMT-6) ---
@@ -1147,7 +1207,32 @@
         }
 
         // --- 5. RSVP Submission Handling ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzY1nF-mlZqgj_Ki7axxlwxIPFGsWEWSEwUnk1SVba2ra_wO_6XSyR2oSeOwIPbwQRQ/exec';
+        const GOOGLE_FORM_URL = 'https://forms.gle/JiBZnbbJ1NU1fMe99';
+
+        let isRsvpSubmitting = false;
+        let isWishSubmitting = false;
+
+        function sendToGoogleSheets(dataObj) {
+            // Envío único y seguro mediante fetch en modo no-cors
+            try {
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(dataObj)
+                }).catch(err => {
+                    console.error("Error al enviar:", err);
+                });
+            } catch(e) {
+                console.error(e);
+            }
+        }
+
         function handleRSVP() {
+            if (isRsvpSubmitting) return;
+
             const guestNameInput = document.getElementById('guestName');
             const guestName = guestNameInput ? guestNameInput.value.trim() : "";
             const attendanceEl = document.querySelector('input[name="attendance"]:checked');
@@ -1160,6 +1245,14 @@
                 guestNameInput.classList.add('ring-2', 'ring-amber-400');
                 setTimeout(() => guestNameInput.classList.remove('ring-2', 'ring-amber-400'), 2000);
                 return;
+            }
+
+            // Bloquear envíos múltiples
+            isRsvpSubmitting = true;
+            const confirmBtn = document.getElementById('confirmRsvpBtn');
+            if (confirmBtn) {
+                confirmBtn.disabled = true;
+                confirmBtn.classList.add('opacity-50', 'pointer-events-none');
             }
 
             // Immediately hide action area (button and deadline)
@@ -1183,23 +1276,138 @@
                 });
             }
 
-            // Background POST to Google Apps Script
+            // Envío único a Google Apps Script
             const postData = {
+                tipo: 'confirmacion',
                 nombre: guestName,
                 asistencia: attendance,
                 personas: guestCount,
-                fechaEnvio: new Date().toISOString()
+                fechaEnvio: new Date().toLocaleString("es-GT", { timeZone: "America/Guatemala" })
             };
 
-            fetch('https://script.google.com/macros/s/AKfycbyjR1P-F-JjLzR7-e4B1_8B7W8jP7Q/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(postData)
-            }).catch(() => {});
+            sendToGoogleSheets(postData);
         }
 
-        // --- 6. Initialization on DOM Load ---
+        // --- 6. Wish Lantern Handlers & Modal Engine ---
+        function handleWishLanternClick(event) {
+            if (event) event.preventDefault();
+
+            // Intenta abrir el enlace en pestaña nueva con noopener
+            let opened = false;
+            try {
+                const win = window.open(GOOGLE_FORM_URL, '_blank', 'noopener,noreferrer');
+                if (win && !win.closed && typeof win.closed !== 'undefined') {
+                    opened = true;
+                }
+            } catch(e) {}
+
+            // Si el navegador o el iframe bloquea las ventanas emergentes, muestra el modal integrado
+            if (!opened) {
+                openWishModal();
+            }
+        }
+
+        function openWishModal() {
+            const modal = document.getElementById('wishModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeWishModal() {
+            const modal = document.getElementById('wishModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function forceOpenGoogleForm() {
+            window.open(GOOGLE_FORM_URL, '_blank', 'noopener,noreferrer');
+        }
+
+        function copyGoogleFormLink() {
+            const btn = document.getElementById('copyFormLinkText');
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(GOOGLE_FORM_URL).then(showCopied).catch(fallback);
+            } else {
+                fallback();
+            }
+
+            function fallback() {
+                const input = document.createElement('input');
+                input.value = GOOGLE_FORM_URL;
+                document.body.appendChild(input);
+                input.select();
+                try { document.execCommand('copy'); showCopied(); } catch(e) {}
+                document.body.removeChild(input);
+            }
+
+            function showCopied() {
+                if (btn) {
+                    btn.innerText = '¡Copiado!';
+                    setTimeout(() => { btn.innerText = 'Copiar Link'; }, 2200);
+                }
+            }
+        }
+
+        function submitDirectWish() {
+            if (isWishSubmitting) return;
+
+            const nameEl = document.getElementById('wishGuestName');
+            const msgEl = document.getElementById('wishMessage');
+            const name = nameEl ? nameEl.value.trim() : '';
+            const msg = msgEl ? msgEl.value.trim() : '';
+
+            if (!name || !msg) {
+                if (!name && nameEl) nameEl.focus();
+                else if (msgEl) msgEl.focus();
+                return;
+            }
+
+            isWishSubmitting = true;
+            const wishBtn = document.getElementById('submitWishBtn');
+            if (wishBtn) {
+                wishBtn.disabled = true;
+                wishBtn.classList.add('opacity-50', 'pointer-events-none');
+            }
+
+            const wishData = {
+                tipo: 'linterna_deseo',
+                nombre: name,
+                mensaje: msg,
+                fechaEnvio: new Date().toLocaleString("es-GT", { timeZone: "America/Guatemala" })
+            };
+
+            // Enviar a la misma hoja de Google Sheets
+            sendToGoogleSheets(wishData);
+
+            // Ocultar formulario del modal y mostrar agradecimiento
+            const fields = document.getElementById('wishFormFields');
+            const notice = document.getElementById('wishSuccessNotice');
+            if (fields) fields.classList.add('hidden');
+            if (notice) notice.classList.remove('hidden');
+
+            // Celebración de confeti dorado
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 60,
+                    spread: 80,
+                    origin: { y: 0.5 },
+                    colors: ['#fbbf24', '#fde047', '#a06BAF', '#ffffff']
+                });
+            }
+
+            setTimeout(() => {
+                closeWishModal();
+                if (fields) fields.classList.remove('hidden');
+                if (notice) notice.classList.add('hidden');
+                if (nameEl) nameEl.value = '';
+                if (msgEl) msgEl.value = '';
+                isWishSubmitting = false;
+                if (wishBtn) {
+                    wishBtn.disabled = false;
+                    wishBtn.classList.remove('opacity-50', 'pointer-events-none');
+                }
+            }, 3500);
+        }
+
+        // --- 7. Initialization on DOM Load ---
         document.addEventListener('DOMContentLoaded', () => {
             updateCountdown();
             setInterval(updateCountdown, 1000);
